@@ -18,6 +18,7 @@ public:
 	GameBoard(int sequenceLength, int setCard, int range=1000);
 	~GameBoard();
 private:
+	bool isNext(int* tab, int x, int j);
 	void generateSet();
 
 	void getRandomNumbers();
@@ -28,6 +29,8 @@ private:
 	}
 
 	void generateDistMatrix();
+
+	
 
 };
 

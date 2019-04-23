@@ -1,12 +1,12 @@
 #include "GameBoard.h"
 #include <time.h>
 
-bool GameBoard::isNext(int* tab, int x,int j)
+bool GameBoard::isNext(int* row, int x,int j)
 {
 
 	for (int i = j; i <= setCard; ++i)
 	{
-		if (tab[i] == x) return true;
+		if (row[i] == x) return true;
 	}
 	return false;
 }
@@ -17,17 +17,17 @@ bool GameBoard::isValid()
 	
 	for (int i = 0; i < setCard; ++i)
 	{
-		int temp=0;
-		int temp2=1;
+		int currentSize=0;
+		int multiplier=1;
 		for (int j = i + 1; j < setCard; ++j)
 		{
-			if (isNext(distMatrix[i], distMatrix[i][j]*temp2, j))
+			if (isNext(distMatrix[i], distMatrix[i][j]*multiplier, j))
 			{
-				temp++;
-				temp2++;
+				currentSize++;
+				multiplier++;
 			}
 		}
-		if (temp > sequenceLenght)return true;
+		if (currentSize > sequenceLenght) return true;
 	}
 	
 	return false;
