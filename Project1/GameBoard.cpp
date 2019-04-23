@@ -44,7 +44,9 @@ GameBoard::GameBoard(int sequenceLength, int setCard,int range)
 	{
 		distMatrix[i] = new int[setCard];
 	}
+	do
 	generateSet();
+	while (!isValid());
 	generateDistMatrix();
 }
 
