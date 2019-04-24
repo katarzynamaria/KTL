@@ -17,10 +17,13 @@ public:
 
 	GameBoard(int sequenceLength, int setCard, int range=1000);
 	~GameBoard();
+	void generateDistMatrix();
+
+
 private:
+
 	bool isNext(int* tab, int x, int j);
 	void generateSet();
-
 	void getRandomNumbers();
 
 	int getDistance(int x, int y)
@@ -28,7 +31,7 @@ private:
 		return setX[x] - setX[y];
 	}
 
-	void generateDistMatrix();
+
 
 	
 

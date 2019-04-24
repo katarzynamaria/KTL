@@ -44,23 +44,16 @@ GameBoard::GameBoard(int sequenceLength, int setCard,int range)
 	{
 		distMatrix[i] = new int[setCard];
 	}
-	do
+	do 
 	generateSet();
 	while (!isValid());
 	generateDistMatrix();
 }
 
-
-
-
-
-
 void GameBoard::generateSet()
 {
 	getRandomNumbers();
 	sort(setX.begin(), setX.end());
-	
-
 }
 
 void GameBoard::getRandomNumbers() //Tworzymy zbiór randomowych liczb 
