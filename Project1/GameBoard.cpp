@@ -1,7 +1,7 @@
-#include "GameBoard.h"
+#include "Gameboard.h"
 #include <time.h>
 
-bool GameBoard::isNext(int* row, int x,int j)
+bool Gameboard::isNext(int* row, int x, int j)
 {
 
 	for (int i = j; i <= setCard; ++i)
@@ -11,29 +11,28 @@ bool GameBoard::isNext(int* row, int x,int j)
 	return false;
 }
 
-bool GameBoard::isValid()
+bool Gameboard::isValid()
 {
-	int check;
-	
+
 	for (int i = 0; i < setCard; ++i)
 	{
-		int currentSize=0;
-		int multiplier=1;
+		int currentSize = 0;
+		int multiplier = 1;
 		for (int j = i + 1; j < setCard; ++j)
 		{
-			if (isNext(distMatrix[i], distMatrix[i][j]*multiplier, j))
+			if (isNext(distMatrix[i], distMatrix[i][j] * multiplier, j))
 			{
 				currentSize++;
 				multiplier++;
 			}
 		}
-		if (currentSize > sequenceLenght) return true;
+		if (currentSize > sequenceLenght) return true;// WARTOSC LOGICZNA DO PRZEMYSLENIA;
 	}
-	
+
 	return false;
 }
 
-GameBoard::GameBoard(int sequenceLength, int setCard,int range)
+Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 {
 	this->sequenceLenght = sequenceLength;
 	this->setCard = setCard;
@@ -44,19 +43,20 @@ GameBoard::GameBoard(int sequenceLength, int setCard,int range)
 	{
 		distMatrix[i] = new int[setCard];
 	}
-	do 
-	generateSet();
+	do
+		generateSet();
 	while (!isValid());
 	generateDistMatrix();
+	generateHypergraph();
 }
 
-void GameBoard::generateSet()
+void Gameboard::generateSet()
 {
 	getRandomNumbers();
 	sort(setX.begin(), setX.end());
 }
 
-void GameBoard::getRandomNumbers() //Tworzymy zbiór randomowych liczb 
+void Gameboard::getRandomNumbers() //Tworzymy zbiór randomowych liczb 
 {
 	vector<int> notYetGenerated(range);
 
@@ -64,17 +64,20 @@ void GameBoard::getRandomNumbers() //Tworzymy zbiór randomowych liczb
 
 	srand(time(NULL));
 
+	Node v;									//tutaj dostosowalam do nowego setX
 	for (int i = 0; i < setCard; i++)
 	{
 		int index = rand() % notYetGenerated.size();
-		int number = notYetGenerated[index];
-		notYetGenerated.erase(notYetGenerated.begin()+index-1);
-		setX.push_back(number);
+		//int number = notYetGenerated[index];
+		v.value = notYetGenerated[index];
+		notYetGenerated.erase(notYetGenerated.begin() + index - 1);
+		//setX.push_back(number);
+		setX.push_back(v);
 
 	}
 }
 
-void GameBoard::generateDistMatrix()
+void Gameboard::generateDistMatrix()
 {
 	for (int i = 0; i < setCard; ++i)
 	{
@@ -85,7 +88,74 @@ void GameBoard::generateDistMatrix()
 	}
 }
 
-
-GameBoard::~GameBoard()
+void Gameboard::generateHypergraph()
 {
+	int index = 0;
+	vector<int> v;
+
+	for (int i = 0; i < setCard; ++i)
+	{
+		int currentSize = 0;
+		int multiplier = 1;
+		for (int j = i + 1; j < setCard; ++j)
+		{
+			if (isNext(distMatrix[i], distMatrix[i][j] * multiplier, j))
+			{
+				currentSize++;
+				multiplier++;
+				v.push_back(setX[i].value);
+			}
+		}
+		if (currentSize > sequenceLenght)
+		{
+			hypergraph[index] = v;
+			index++;
+			v.clear;
+		};
+	}
+
+
+}
+
+Gameboard::~Gameboard()
+{
+
+	for (int i = 0; i < setCard; ++i)
+	{
+		delete[] distMatrix[i];
+		hypergraph[i].clear;
+	}
+}
+
+
+Node Gameboard::LastMove()
+{
+	return Node();
+}
+
+
+
+void Gameboard::ShowGameboard()
+{
+	HANDLE hOut;
+	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	 SetConsoleTextAttribute(hOut, FOREGROUND_RED);
+	 SetConsoleTextAttribute(hOut, FOREGROUND_BLUE);
+
+	 for (int i = 0; i < setCard; ++i)
+	 {
+		 if (setX[i].colour == 1)
+		 {
+			 SetConsoleTextAttribute(hOut, FOREGROUND_RED);
+			 cout<< setX[i].value;
+		 }
+		 if(setX[i].colour == 2)
+
+		 {
+			 SetConsoleTextAttribute(hOut, FOREGROUND_RED);
+			 cout << setX[i].value;
+		 }
+		 
+	 }
 }
