@@ -5,7 +5,7 @@ struct Node
 {
 	int value;			//jego wartoœæ
 	int colour;			//przypisany kolor: domyœlnie 0
-	double potential;	// funckje potencjalu jeszcze wymyslimy ;)
+	double potential;	// funkcje potencjalu jeszcze wymyslimy ;)
 	//int degree;		 // liczba ciagow do ktorych nalezy
 
 	//konstruktory
@@ -21,13 +21,13 @@ struct Node
 	}
 
 	//do odejmowania wartoœci
-	int operator-(const Node &rv) const {
+	int operator-(Node &rv){
 		return value - rv.value;
 	}
 
 };
 
-class Game : public Gameboard
+class Game : public Gameboard	
 {
 	int strategy;
 public:
@@ -35,11 +35,11 @@ public:
 	~Game();
 
 	void GameStart();			// zczytuje parametry od u¿ytkownika, tworzy Gameboard, Gracza1, Gracza2
-	void ShowGameboard();		// wyœwietla wylosowan¹ plansze
+	//void ShowGameboard();		// wyœwietla wylosowan¹ plansze (wrzucona do Gameboard)
 	bool EndOfGame();			// sprawdza czy ktorys z graczy nie wygral
 	void ShowStatus();			// pokazuje statystyki gry w danym momencie
 	void ShowWinner();			// (opcjonalnie) pokazuje zwyciêzce po zakoñczeniu rozgrywki
-	void PlayerMove(Player p);  // wykonuje ruch gracza
+	void PlayerMove(Player& p);  // wykonuje ruch gracza
 
 	//moze cos jeszcze moze mniej ;)
 };

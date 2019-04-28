@@ -9,22 +9,28 @@ using namespace std;
 
 class Gameboard		//zmienilam na pisane wszystko z malej litery - w mojej glowie ma to wiecej sensu, ale nie bede sie klocic jesli zmieni ktos xd
 {
-	int sequenceLenght;
-	int setCard;
-	int range;
-	//vector<int> setX;
 	vector<Node> setX;		//struktura Node w Game.h
 	int** distMatrix;
+	int range;
+	int sequenceLenght;
+	int setCard;
 	//vector<vector<int>> hypergraph;	//albo vector<Node> jeszcze nie przemyslalam
-
+	//vector<int> setX;
 public:
-	bool isValid();
+	
+	Gameboard(int sequenceLength = 0, int setCard = 0, int range = 1000);
+	~Gameboard();		//dodalam usuwanie tablicy dynamicznej
 
-	Gameboard(int sequenceLength= 0, int setCard = 0, int range = 1000);
-	~Gameboard();
+
 	void generateDistMatrix();
-
+	bool isValid();
 	Node LastMove(); // wyciaga jaki ruch byl ostatni (do strategi parujacej M-B(1))
+	void ShowGameboard();
+
+	//gety
+	vector<Node> GetSetX() { return this->setX;}
+	int GetSequenceLenght() { return this->sequenceLenght;}
+	int** GetDistMatrix() { return this->distMatrix; }
 
 
 private:

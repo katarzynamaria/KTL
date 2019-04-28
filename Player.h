@@ -1,16 +1,19 @@
 #pragma once
 #include "Game.h"
+#include "Strategy.h"
 
-class Player : public Game, public Gameboard
+
+class Player //doszlam do wniosku ze moze Player gry nie potrzebuje
 {
-	int type;		//Maker, Breaker(1) lub (2) typu
+	Strategy& type;		//Maker, Breaker(1) lub (2) typu
+	Gameboard& gb;
 public:
-	Player();
+	Player(Strategy& s, Gameboard& g) : type(s), gb(g) {};
 	~Player();
 	
+
 	void ShowMove();
 
-	Node ChooseNode();			//zwraca najlepszy ruch w danym momencie
 	void TakeNode();			//zmienia prametr colour w Node na swoj
 	void ChangePotential();		//zmienia parametr potential w Node
 
