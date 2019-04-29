@@ -47,9 +47,14 @@ private:
 	void generateSet();
 	void getRandomNumbers();
 	void generateHypergraph();
+	int Abs(Node n, Node m)
+	{
+		if (n < m) return m -n;
+		return n - m;
+	}
 	int getDistance(int x, int y)
 	{
-		return setX[x] - setX[y];		//przeci¹¿one odejmowanie (szczegoly w Game.h)
+		return Abs(setX[x], setX[y]);		//przeci¹¿one odejmowanie (szczegoly w Game.h)
 	}
 
 };

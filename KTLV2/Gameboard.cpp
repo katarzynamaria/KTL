@@ -14,7 +14,7 @@ bool Gameboard::isNext(int* row, int x, int j)
 
 bool Gameboard::isValid()
 {
-	for (int i = 0; i < setCard; ++i)
+	for (int i = 0; i < 2; i++)
 	{
 		int currentSize = 0;
 		int multiplier = 1;
@@ -37,23 +37,32 @@ Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 	this->setCard = setCard;
 	this->range = range;
 	this->distMatrix = new int* [setCard];
-
+	cout << "wszystko tutaj gra?";
 	for (int i = 0; i < setCard; ++i)
 	{
 		distMatrix[i] = new int[setCard];
+		
 	}
 	do
+	{    
+		int p = isValid();
 		generateSet();
+		cout << "isValid= " << p << endl;
+		cout << "czy wygeneruje poprawny set";
+	}
 	while (!isValid());
 
+	cout << "generuje hipergraf";
 	generateHypergraph();
 }
 
 void Gameboard::generateSet()
 {
+	cout << "zaczynam generowac set";
 	getRandomNumbers();
 	sort(setX.begin(), setX.end());
 	generateDistMatrix();
+	cout << "wygenerowalam set" << endl;;
 }
 
 void Gameboard::getRandomNumbers() //Tworzymy zbiór randomowych liczb 
@@ -73,8 +82,9 @@ void Gameboard::getRandomNumbers() //Tworzymy zbiór randomowych liczb
 		notYetGenerated.erase(notYetGenerated.begin() + index - 1);
 		//setX.push_back(number);
 		setX.push_back(v);
-
+		
 	}
+	cout << "wygenerowane randomowe liczby" << endl;
 }
 
 void Gameboard::generateDistMatrix()
@@ -84,12 +94,15 @@ void Gameboard::generateDistMatrix()
 		for (int j = i; j < setCard; ++j)
 		{
 			distMatrix[i][j] = getDistance(i, j);
+			cout << distMatrix[i][j]<<" ";
 		}
+		cout << endl;
 	}
 }
 
 void Gameboard::generateHypergraph()
 {
+	cout << "zaczynam generowaæ hipergraf" << endl;
 	int index = 0;
 	vector<int> v;
 
