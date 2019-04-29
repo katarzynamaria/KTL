@@ -1,12 +1,11 @@
 #pragma once
-#include "Player.h"
-#include "Game.h"
 #include <vector>
 #include <algorithm>
 #include <numeric>
 #include <iostream>
 #include <stdlib.h>
 #include <windows.h>
+#include "Game.h"
 
 using namespace std;
 
@@ -19,23 +18,28 @@ class Gameboard		//zmienilam na pisane wszystko z malej litery - w mojej glowie 
 	int setCard;
 	vector<vector<int>> hypergraph;	//albo vector<Node> jeszcze nie przemyslalam
 	//vector<int> setX;
+
+	int lastColoredField;
 public:
-	
-	Gameboard(int sequenceLength = 0, int setCard = 0, int range = 1000);
+
+	Gameboard(int sequenceLength = 4, int setCard = 100, int range = 1000);
 	~Gameboard();		//dodalam usuwanie tablicy dynamicznej
 
 
 	void generateDistMatrix();
-	void generateHypergraph();
 	bool isValid();
-	Node LastMove(); // wyciaga jaki ruch byl ostatni (do strategi parujacej M-B(1))
+	int LastMove(); // wyciaga jaki ruch byl ostatni (do strategi parujacej M-B(1))
 	void ShowGameboard();
 
 	//gety
-	vector<Node> GetSetX() { return this->setX;}
-	int GetSequenceLenght() { return this->sequenceLenght;}
+	vector<Node> GetSetX() { return this->setX; }
+	int GetSequenceLenght() { return this->sequenceLenght; }
 	int** GetDistMatrix() { return this->distMatrix; }
-
+	void colorField(int index, int colour) 
+	{
+		lastColoredField = index;
+		setX[index].colour = colour;
+	};
 
 private:
 
@@ -43,7 +47,6 @@ private:
 	void generateSet();
 	void getRandomNumbers();
 	void generateHypergraph();
-
 	int getDistance(int x, int y)
 	{
 		return setX[x] - setX[y];		//przeci¹¿one odejmowanie (szczegoly w Game.h)
