@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <vector>
 #include <algorithm>
 #include <numeric>
@@ -16,10 +16,12 @@ class Gameboard		//zmienilam na pisane wszystko z malej litery - w mojej glowie 
 	int range;
 	int sequenceLenght;
 	int setCard;
-	vector<vector<int>> hypergraph;	//albo vector<Node> jeszcze nie przemyslalam
-	//vector<int> setX;
+	vector<vector<int>> hypergraph;	
+	
+
 
 	int lastColoredField;
+
 public:
 
 	Gameboard(int sequenceLength = 4, int setCard = 100, int range = 1000);
@@ -35,7 +37,9 @@ public:
 	vector<Node> GetSetX() { return this->setX; }
 	int GetSequenceLenght() { return this->sequenceLenght; }
 	int** GetDistMatrix() { return this->distMatrix; }
-	void colorField(int index, int colour) 
+	vector<vector<int>> GetHypergraph() { return this->hypergraph; }
+
+	void colorField(int index, int colour)
 	{
 		lastColoredField = index;
 		setX[index].colour = colour;
@@ -49,13 +53,12 @@ private:
 	void generateHypergraph();
 	int Abs(Node n, Node m)
 	{
-		if (n < m) return m -n;
+		if (n < m) return m - n;
 		return n - m;
 	}
 	int getDistance(int x, int y)
 	{
-		return Abs(setX[x], setX[y]);		//przeci¹¿one odejmowanie (szczegoly w Game.h)
+		return Abs(setX[x], setX[y]);		//przeciÂ¹Â¿one odejmowanie (szczegoly w Game.h)
 	}
 
 };
-

@@ -24,7 +24,7 @@ bool Gameboard::isValid()
 			while (isNext(distMatrix[i], distMatrix[i][j] * multiplier, j))
 			{
 				currentSize++;
-				multiplier++; 
+				multiplier++;
 			}
 			if (currentSize >= sequenceLenght) return true;// WARTOSC LOGICZNA DO PRZEMYSLENIA;
 		}
@@ -33,35 +33,35 @@ bool Gameboard::isValid()
 }
 
 Gameboard::Gameboard(int sequenceLength, int setCard, int range)
-{
+{	
 	this->sequenceLenght = sequenceLength;
 	this->setCard = setCard;
 	this->range = range;
-	this->distMatrix = new int* [setCard];
-	
+	this->distMatrix = new int*[setCard];
+
+
 	for (int i = 0; i < setCard; ++i)
 	{
 		distMatrix[i] = new int[setCard];
-		
+
 	}
 	do
-	{    
+	{
 		generateSet();
-		
-	}
-	while (!isValid());
 
-	
+	} while (!isValid());
+
+
 	generateHypergraph();
 }
 
 void Gameboard::generateSet()
 {
-	
+
 	getRandomNumbers();
 	sort(setX.begin(), setX.end());
 	generateDistMatrix();
-	
+
 }
 
 void Gameboard::getRandomNumbers() //Tworzymy zbiór randomowych liczb 
@@ -81,9 +81,9 @@ void Gameboard::getRandomNumbers() //Tworzymy zbiór randomowych liczb
 		notYetGenerated.erase(notYetGenerated.begin() + index);
 		//setX.push_back(number);
 		setX.push_back(v);
-		
+
 	}
-	
+
 }
 
 void Gameboard::generateDistMatrix()
@@ -93,15 +93,15 @@ void Gameboard::generateDistMatrix()
 		for (int j = i; j < setCard; ++j)
 		{
 			distMatrix[i][j] = getDistance(i, j);
-			
+
 		}
-		
+
 	}
 }
 
 void Gameboard::generateHypergraph()
 {
-	
+
 	int index = 0;
 	vector<int> v;
 
@@ -111,27 +111,27 @@ void Gameboard::generateHypergraph()
 		int multiplier = 1;
 		for (int j = i + 1; j < setCard; ++j)
 		{
-			
+
 			while (isNext(distMatrix[i], distMatrix[i][j] * multiplier, j))
 			{
 				currentSize++;
 				multiplier++;
 				v.push_back(setX[i].value);
-				
+
 			}
-		if (currentSize > sequenceLenght)
-		{
-			
-			hypergraph.push_back(v);
-			
+			if (currentSize > sequenceLenght)
+			{
+
+				hypergraph.push_back(v);
+
+			}
+			v.clear();
 		}
-		v.clear();
-		}
-		
+
 
 	}
 
-	
+
 }
 
 Gameboard::~Gameboard()

@@ -5,27 +5,45 @@
 
 using namespace std;
 
-int main() {
+int main(){
 
-	Gameboard gameboard;
+	Game gra;
+	int k=0;
+	int x=0;
+	int strategy=0;
+	gra.GameStart(k,x, strategy);
+	Gameboard plansza(k, x);
+	Player* gracz1 = new Player(new Maker, plansza, 1);
 
-	//Game Gra;
-	//Gra.GameStart();
-
-	//gracze tutaj tylko roboczo zeby na mnie kompilator nie krzyczal :p
-	//Player* Gracz1 = new Player(new Maker(), gameboard);
-	//Player* Gracz2 = new Player(new BreakerEasy(), gameboard);
-
-	//Gra.ShowGameboard();
-	/*while (!Gra.EndOfGame())
+	/*switch (strategy)
 	{
-		//Gra.PlayerMove(Gracz1);
-		//Gra.PlayerMove(Gracz2);
-		Gra.ShowStatus();
+	case 1:
+		Player* gracz1 = new Player(new Maker, plansza, 1);
+		Player* gracz2 = new Player(new Maker, plansza, 2);
+		break;
+
+	case 2:
+		Player* gracz1 = new Player(new Maker, plansza, 1);
+		Player* gracz2 = new Player(new BreakerEasy, plansza, 2);
+		break;
+
+	case 3:
+		Player* gracz1 = new Player(new Maker, plansza, 1);
+		Player* gracz2 = new Player(new BreakerHard, plansza, 2);
+		break;
+	}*/
+	plansza.ShowGameboard();
+	
+	//while (!gra.EndOfGame(gracz2))
+	//{
+	//	gra.PlayerMove(gracz1);
+	//	gra.PlayerMove(gracz2);
+	//	gra.ShowStatus();
 
 		//tutaj moze ty wygladac inaczej w zale¿noœci od tego czy bêdziemy sprawdzaæ kryterium zwyciestwa
 		//po ka¿dym ruchu, czy po ka¿dej 'turze' (tj. dwóch ruchach)
 
-	}*/
-	//Gra.ShowWinner();
+	//}
+	//Gra.ShowWinner();	
+	system("Pause");
 }
