@@ -20,30 +20,52 @@ bool Maker::End(Gameboard gb, int c)
 {
 	vector<vector<int>> h = gb.GetHypergraph;		//hipergraf jako zbior ciagow
 	vector<Node> X = gb.GetSetX();
+	
 	for (int i = 0; h.size(); i++)
 	{
-		int cs = 0;					
+		int cs = 0;	
+		vector<int> sequenceMaybe = vector<int>(X.size());				
 		for (int j = 0; h[i].size(); j++)
 		{
-			if (X[h[i][j]].colour = c) cs++;	//sprawdzamy ile elementow z danego ciagu nalezy do gracza
+			if (X[h[i][j]].colour = c)
+			{
+				sequenceMaybe.push_back(h[i][j]);
+				cs++;	//sprawdzamy ile elementow z danego ciagu nalezy do gracza
+			}
 		}
-		if (cs > currentLenght) currentLenght = cs;		
+		int r = h[i][1] - h[i][0]; //do jakiej krawedzi multigrafu naleza
+		if (gb.GetSequenceLenght <= cs)
+		{	
+			if(seqenceForSure(sequenceMaybe,r,gb.GetSequenceLenght())) return true;
+			else sequenceMaybe.clear();
+		}
 	}
-	if (gb.GetSequenceLenght() == currentLenght) return true;
-	else return false;
+	return false;
 }
 
 void Maker::ChangePotential(Node& moveMade, vector<Node>& X)
 {
 	int d = moveMade.degree;
+	moveMade.potential = 0;
+	//mam wykminiony potencjal tylko nie wiem jeszcze jak zaimplementowac mozliwe ze ogarne do 03.05
+}
 
+bool Maker::seqenceForSure(vector<int> seq, int r, int k)
+{
+	int cs = 0;
+	for (int i = 0; i < seq.size() - 1; i++)
+	{
+		if (seq[i + 1] - seq[i] == r) cs++;
+	}
+	if (cs >= k) return true;
+	else return false;
 }
 
 
 
 int BreakerEasy::ChooseNode(vector<Node> X)
 {
-	
+	//jeszcze sie uzupelni
 	return 0;
 }
 
@@ -55,8 +77,13 @@ bool BreakerEasy::End(Gameboard gd, int c)
 	{
 		if (X[i].colour == c) k++;
 	}
-	if (k == (int)X.size() / 2) return true;		//breaker ma wszystkie swoje ruchy za soba
+	if (k == (int)(X.size() / 2)) return true;		//breaker ma wszystkie swoje ruchy za soba
 	else return false;
+}
+
+void BreakerEasy::ChangePotential(Node &, vector<Node>&)
+{
+	//taki sam jak przy BreakerHard
 }
 
 int BreakerHard::ChooseNode(vector<Node> X)
@@ -84,4 +111,8 @@ bool BreakerHard::End(Gameboard gd, int c)
 	}
 	if (k == (int)X.size() / 2) return true;
 	else return false;
+}
+
+void BreakerHard::ChangePotential(Node &, vector<Node>&)
+{
 }

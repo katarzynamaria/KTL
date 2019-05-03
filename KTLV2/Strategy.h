@@ -11,13 +11,13 @@ public:
 
 class Maker : public Strategy
 {
-	int currentLenght;				//dotychczasowy najdluzszy ciag
 public:
-	Maker():currentLenght(0) {};
-
+	
 	virtual int ChooseNode(vector<Node>);
 	virtual bool End(Gameboard, int);
 	virtual void ChangePotential(Node&, vector<Node>&);
+
+	bool seqenceForSure(vector<int>, int, int);		//sprawdza czy zbior dlugosci k faktycznie jest ciagiem
 };
 
 class BreakerEasy : public Strategy //breaker strategii parujacej

@@ -15,24 +15,9 @@ int main(){
 	Gameboard plansza(k, x);
 	Player* gracz1 = new Player(new Maker, plansza, 1);
 
-	/*switch (strategy)
-	{
-	case 1:
-		Player* gracz1 = new Player(new Maker, plansza, 1);
-		Player* gracz2 = new Player(new Maker, plansza, 2);
-		break;
-
-	case 2:
-		Player* gracz1 = new Player(new Maker, plansza, 1);
-		Player* gracz2 = new Player(new BreakerEasy, plansza, 2);
-		break;
-
-	case 3:
-		Player* gracz1 = new Player(new Maker, plansza, 1);
-		Player* gracz2 = new Player(new BreakerHard, plansza, 2);
-		break;
-	}*/
 	plansza.ShowGameboard();
+
+	//smiecie,smiecie
 	
 	//while (!gra.EndOfGame(gracz2))
 	//{

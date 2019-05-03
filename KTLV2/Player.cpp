@@ -14,11 +14,6 @@ void Player::ShowMove()
 {
 }
 
-Node Player::ChooseNode()
-{
-	return Node();
-}
-
 bool Player::IsWinner()
 {
 	return strategy->End(gb, colour);		//winner w zalezosci od strategii
@@ -26,7 +21,8 @@ bool Player::IsWinner()
 
 void Player::TakeNode()
 {
-	gb.colorField(strategy->ChooseNode(), colour);
+	vector<Node> X = gb.GetSetX();
+	gb.colorField(strategy->ChooseNode(X), colour);
 }
 
 void Player::ChangePotential(Node& moveMade)

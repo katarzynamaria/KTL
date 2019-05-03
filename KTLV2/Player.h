@@ -2,7 +2,7 @@
 #include "Strategy.h"
 #include "Gameboard.h"
 
-class Player //doszlam do wniosku ze moze Player gry nie potrzebuje
+class Player
 {
 	int colour;
 	
@@ -13,13 +13,8 @@ public:
 	~Player();
 
 	void ShowMove();
-
-	void TakeNode();			//zmienia prametr colour w Node na swoj
+	void TakeNode();							//zmienia prametr colour w Node na swoj
 	void ChangePotential(Node& moveMade);		//zmienia parametr potential w Node
-	Node ChooseNode();
 	bool IsWinner();
-
-
-	//moze cos wiecej moze cos mniej :)
 
 };

@@ -61,13 +61,14 @@ void Game::ShowStatus(Gameboard& gb)
 
 void Node::setDegree(Gameboard& g)		
 {
+	//pewnie to zmienie jeszcze
 	vector<vector<int>> h = g.GetHypergraph();
 	int n = g.GetSequenceLenght();
 	//int m = 0;
 	for (int i = 0; i < h.size(); i++)
 	{
 		int m = h.size() - g.GetSequenceLenght(); 
-		while (m > 0)							//to tylko wyglada jak n^3 xddd
+		while (m > 0)							
 		{
 			for (int j = m; j < n; j++)
 			{
@@ -78,7 +79,12 @@ void Node::setDegree(Gameboard& g)
 	}
 }
 
-void Node::setPotential(int sequenceLenght)
-{
-	potential = degree / pow(2, sequenceLenght);
+void Node::setPotential(int p)
+{	
+	if (potential == 0)
+	{
+		potential = (double)(degree / pow(2, p));
+		return;
+	}
+	potential = p;
 }

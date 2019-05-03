@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class Gameboard		//zmienilam na pisane wszystko z malej litery - w mojej glowie ma to wiecej sensu, ale nie bede sie klocic jesli zmieni ktos xd
+class Gameboard		
 {
 	vector<Node> setX;		//struktura Node w Game.h
 	int** distMatrix;
@@ -30,13 +30,12 @@ public:
 
 	void generateDistMatrix();
 	bool isValid();
-	int LastMove(); // wyciaga jaki ruch byl ostatni (do strategi parujacej M-B(1))
+	int LastMove();				// wyciaga jaki ruch byl ostatni (do strategi parujacej M-B(1))
 	void ShowGameboard();
 
 	//gety
 	vector<Node> GetSetX() { return this->setX; }
 	int GetSequenceLenght() { return this->sequenceLenght; }
-	int** GetDistMatrix() { return this->distMatrix; }
 	vector<vector<int>> GetHypergraph() { return this->hypergraph; }
 
 	void colorField(int index, int colour)

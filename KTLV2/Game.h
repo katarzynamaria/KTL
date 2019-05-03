@@ -36,9 +36,8 @@ public:
 	~Game();
 
 	void GameStart(int&, int&, int&);			// zczytuje parametry od u¿ytkownika, tworzy Gameboard, Gracza1, Gracza2
-												// wyœwietla wylosowan¹ plansze (wrzucona do Gameboard)
 	bool EndOfGame(Player&, Player&);			// sprawdza czy ktorys z graczy nie wygral (w zale¿noœci od strategii gracza)
 	void ShowStatus(Gameboard&);							// pokazuje statystyki gry w danym momencie	
-//	void PlayerMove(Player& p);  // wykonuje ruch gracza
+//	void PlayerMove(Player& p);  // wykonuje ruch gracza (do napisania)
 	
 };
