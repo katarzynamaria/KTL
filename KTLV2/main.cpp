@@ -1,7 +1,4 @@
-#include "Game.h"
-#include "Player.h"
-#include "Gameboard.h"
-#include <iostream>
+#include "Strategy.h"
 
 using namespace std;
 
@@ -12,13 +9,17 @@ int main(){
 	int x=0;
 	int strategy=0;
 	gra.GameStart(k,x, strategy);
-	Gameboard plansza(k, x);
-	Player* gracz1 = new Player(new Maker, plansza, 1);
+	Gameboard plansza(3,15,30);
+	//Player* gracz1 = new Player(new Maker, plansza, 1);
 
+	cout << "skonczylem tworzyc plansze" << endl;
 	plansza.ShowGameboard();
-
+	
+	system("pause");
 	//smiecie,smiecie
 	
+	
+
 	//while (!gra.EndOfGame(gracz2))
 	//{
 	//	gra.PlayerMove(gracz1);

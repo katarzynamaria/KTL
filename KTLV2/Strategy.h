@@ -1,18 +1,18 @@
-#pragma once
-//#include "Game.h"
+ï»¿#pragma once
+#include "Gameboard.h"
 
 class Strategy
 {
 public:
 	virtual int ChooseNode(vector<Node>) = 0;				//zwracamy indeks w setX;
-	virtual bool End(Gameboard, int) = 0;			//warunek wygranej w zale¿noœci od strategii
-	virtual void ChangePotential(Node&, vector<Node>&) = 0;			//zmiana potencjalu zalezy od strategii (jak maker to wzrasta o 1/2^k, jak breaker to moze byc rózna)
+	virtual bool End(Gameboard, int) = 0;			//warunek wygranej w zaleÂ¿noÅ“ci od strategii
+	virtual void ChangePotential(Node&, vector<Node>&) = 0;			//zmiana potencjalu zalezy od strategii (jak maker to wzrasta o 1/2^k, jak breaker to moze byc rÃ³zna)
 };
 
 class Maker : public Strategy
 {
 public:
-	
+
 	virtual int ChooseNode(vector<Node>);
 	virtual bool End(Gameboard, int);
 	virtual void ChangePotential(Node&, vector<Node>&);

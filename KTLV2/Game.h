@@ -2,12 +2,13 @@
 
 struct Node
 {
+
 	int value;			//jego wartoœæ
 	int colour;			//przypisany kolor: domyœlnie 0
 	double potential;	// funkcje potencjalu jeszcze wymyslimy ;)
 	int degree;		 // liczba ciagow do ktorych nalezy
 
-						//konstruktory
+					 //konstruktory
 	Node() : value(0), colour(0), potential(0), degree(0) {};
 	Node(int v, int col = 0, double pot = 0) : value(v), colour(col), potential(pot) {};
 
@@ -31,13 +32,14 @@ struct Node
 
 class Game
 {
+
 public:
 	Game();
 	~Game();
 
 	void GameStart(int&, int&, int&);			// zczytuje parametry od u¿ytkownika, tworzy Gameboard, Gracza1, Gracza2
-	bool EndOfGame(Player&, Player&);			// sprawdza czy ktorys z graczy nie wygral (w zale¿noœci od strategii gracza)
+	bool EndOfGame();			// sprawdza czy ktorys z graczy nie wygral (w zale¿noœci od strategii gracza)
 	void ShowStatus(Gameboard&);							// pokazuje statystyki gry w danym momencie	
-//	void PlayerMove(Player& p);  // wykonuje ruch gracza (do napisania)
-	
+															//	void PlayerMove(Player& p);  // wykonuje ruch gracza (do napisania)
+
 };

@@ -9,15 +9,15 @@
 
 using namespace std;
 
-class Gameboard		
+class Gameboard
 {
 	vector<Node> setX;		//struktura Node w Game.h
 	int** distMatrix;
 	int range;
 	int sequenceLenght;
 	int setCard;
-	vector<vector<int>> hypergraph;	
-	
+	vector<vector<int>> hypergraph;
+
 
 
 	int lastColoredField;

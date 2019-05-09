@@ -33,7 +33,7 @@ bool Gameboard::isValid()
 }
 
 Gameboard::Gameboard(int sequenceLength, int setCard, int range)
-{	
+{
 	this->sequenceLenght = sequenceLength;
 	this->setCard = setCard;
 	this->range = range;

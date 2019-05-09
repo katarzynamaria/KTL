@@ -1,5 +1,4 @@
 #include "Strategy.h"
-#include "Gameboard.h"
 
 int Maker::ChooseNode(vector<Node> X)
 {
@@ -20,11 +19,11 @@ bool Maker::End(Gameboard gb, int c)
 {
 	vector<vector<int>> h = gb.GetHypergraph;		//hipergraf jako zbior ciagow
 	vector<Node> X = gb.GetSetX();
-	
+
 	for (int i = 0; h.size(); i++)
 	{
-		int cs = 0;	
-		vector<int> sequenceMaybe = vector<int>(X.size());				
+		int cs = 0;
+		vector<int> sequenceMaybe = vector<int>(X.size());
 		for (int j = 0; h[i].size(); j++)
 		{
 			if (X[h[i][j]].colour = c)
@@ -35,8 +34,8 @@ bool Maker::End(Gameboard gb, int c)
 		}
 		int r = h[i][1] - h[i][0]; //do jakiej krawedzi multigrafu naleza
 		if (gb.GetSequenceLenght <= cs)
-		{	
-			if(seqenceForSure(sequenceMaybe,r,gb.GetSequenceLenght())) return true;
+		{
+			if (seqenceForSure(sequenceMaybe, r, gb.GetSequenceLenght())) return true;
 			else sequenceMaybe.clear();
 		}
 	}
@@ -73,7 +72,7 @@ bool BreakerEasy::End(Gameboard gd, int c)
 {
 	int k = 0;
 	vector<Node> X = gd.GetSetX();
-	for (int i = 0; i < X.size(); i++)		
+	for (int i = 0; i < X.size(); i++)
 	{
 		if (X[i].colour == c) k++;
 	}
