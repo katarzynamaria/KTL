@@ -31,19 +31,7 @@ void Game::GameStart(int &k, int &x, int& strategy)
 
 bool Game::EndOfGame()
 {
-	if (p1.IsWinner())
-	{
-		cout << "--------KONIEC GRY---------" << endl;
-		cout << "wygrywa gracz 1" << endl;
-		return true;
-	}
-	if (p2.IsWinner() && !p1.IsWinner())	//jesli breaker ma juz wszystkie ruchy za soba, a Maker dalej nie wygral
-	{									//albo jesli drugi tez jest Makerem to logiczne ze pierwszy nie wygrywa ;)
-		cout << "--------KONIEC GRY---------" << endl;
-		cout << "wygrywa gracz 2" << endl;
-		return true;
-	}
-	return false;
+	return true;
 }
 
 void Game::ShowStatus(Gameboard& gb)
@@ -58,32 +46,3 @@ void Game::ShowStatus(Gameboard& gb)
 //p.changeCurrentLenght();
 //}
 
-void Node::setDegree(Gameboard& g)
-{
-	//pewnie to zmienie jeszcze
-	vector<vector<int>> h = g.GetHypergraph();
-	int n = g.GetSequenceLenght();
-	//int m = 0;
-	for (int i = 0; i < h.size(); i++)
-	{
-		int m = h.size() - g.GetSequenceLenght();
-		while (m > 0)
-		{
-			for (int j = m; j < n; j++)
-			{
-				if (h[i][j] == value) degree++;
-			}
-			m--;
-		}
-	}
-}
-
-void Node::setPotential(int p)
-{
-	if (potential == 0)
-	{
-		potential = (double)(degree / pow(2, p));
-		return;
-	}
-	potential = p;
-}

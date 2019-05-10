@@ -1,5 +1,5 @@
+#include "Game.h"
 #include "Strategy.h"
-
 using namespace std;
 
 int main(){

@@ -5,7 +5,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <windows.h>
-#include "Game.h"
+#include "Node.h"
 
 using namespace std;
 

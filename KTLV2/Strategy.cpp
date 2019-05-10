@@ -17,7 +17,7 @@ int Maker::ChooseNode(vector<Node> X)
 
 bool Maker::End(Gameboard gb, int c)
 {
-	vector<vector<int>> h = gb.GetHypergraph;		//hipergraf jako zbior ciagow
+	vector<vector<int>> h = gb.GetHypergraph();		//hipergraf jako zbior ciagow
 	vector<Node> X = gb.GetSetX();
 
 	for (int i = 0; h.size(); i++)
@@ -33,7 +33,7 @@ bool Maker::End(Gameboard gb, int c)
 			}
 		}
 		int r = h[i][1] - h[i][0]; //do jakiej krawedzi multigrafu naleza
-		if (gb.GetSequenceLenght <= cs)
+		if (gb.GetSequenceLenght() <= cs)
 		{
 			if (seqenceForSure(sequenceMaybe, r, gb.GetSequenceLenght())) return true;
 			else sequenceMaybe.clear();

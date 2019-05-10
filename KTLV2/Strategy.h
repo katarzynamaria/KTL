@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Gameboard.h"
+#include "Game.h"
 
 class Strategy
 {
