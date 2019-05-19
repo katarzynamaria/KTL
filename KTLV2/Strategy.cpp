@@ -46,7 +46,7 @@ void Maker::ChangePotential(Node& moveMade, vector<Node>& X)
 {
 	int d = moveMade.degree;
 	moveMade.potential = 0;
-	//mam wykminiony potencjal tylko nie wiem jeszcze jak zaimplementowac mozliwe ze ogarne do 03.05
+
 }
 
 bool Maker::seqenceForSure(vector<int> seq, int r, int k)
@@ -64,7 +64,6 @@ bool Maker::seqenceForSure(vector<int> seq, int r, int k)
 
 int BreakerEasy::ChooseNode(vector<Node> X)
 {
-	//jeszcze sie uzupelni
 	return 0;
 }
 
@@ -87,9 +86,10 @@ void BreakerEasy::ChangePotential(Node &, vector<Node>&)
 
 int BreakerHard::ChooseNode(vector<Node> X)
 {
+	int p = X.size();
 	int max = X[0].potential;
 	int v = X[0].value;;
-	for (int i = 1; i < X.size(); i++)
+	for (int i = 1; i < p; i++)
 	{
 		if (X[i].potential > max)
 		{
@@ -112,6 +112,9 @@ bool BreakerHard::End(Gameboard gd, int c)
 	else return false;
 }
 
-void BreakerHard::ChangePotential(Node &, vector<Node>&)
+
+void BreakerHard::ChangePotential(Node& moveMade, vector<Node>& X)
 {
+
+
 }

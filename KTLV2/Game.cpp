@@ -3,8 +3,10 @@
 
 using namespace std;
 
-Game::Game()
-{
+Game::Game(int x, int k, int strategy) : gb(k, x, 100)
+{	
+	this->strategy = strategy;
+	cout << "skonczylem tworzyc plansze" << endl;
 }
 
 Game::~Game()
@@ -25,13 +27,19 @@ void Game::GameStart(int &k, int &x, int& strategy)
 	cout << "Wybrana strategia: ";
 	cin >> strategy;
 
+	cout << "skonczylem tworzyc plansze" << endl;
 }
 
 
 
-bool Game::EndOfGame()
+bool Game::EndOfGame(Gameboard& gb)
 {
-	return true;
+	if (ifWinner)
+	{
+		cout << "wygrywa grzacz " << gb.LastMove() << endl;
+		return true;
+	}
+	return false;
 }
 
 void Game::ShowStatus(Gameboard& gb)

@@ -3,19 +3,32 @@
 using namespace std;
 
 int main(){
-
-	Game gra;
-	int k=0;
-	int x=0;
-	int strategy=0;
-	gra.GameStart(k,x, strategy);
-	Gameboard plansza(3,15,30);
-	//Player* gracz1 = new Player(new Maker, plansza, 1);
-
-	cout << "skonczylem tworzyc plansze" << endl;
-	plansza.ShowGameboard();
+	int x=0, k=0, strategy;
 	
-	system("pause");
+	cout << "----------- START GRY -----------" << endl;
+	while (x <= 2 * k + 1)
+	{
+		cout << "Moc zbioru X: ";
+		cin >> x;
+		cout << "Dlugosc ciagu: ";
+		cin >> k;
+		if (x <= 2 * k + 1) cout << "Niepoprawne dane. Wpisz jeszcze raz"<<endl;
+	}
+		cout << "Strategie gracza: " << endl;
+		cout << "1 - agresywny vs agresywny" << endl;
+		cout << "2 - agresywny vs defensywny(naiwny)" << endl;
+		cout << "3 - agresywny vs defensywny" << endl;
+		cout << "Wybrana strategia: ";
+		cin >> strategy;
+	
+	Game gra(x, k, strategy);
+	
+	//Gameboard plansza(k,x,30);
+	//plansza.ShowGameboard();
+	//Player* gracz1 = new Player(new Maker, plansza, 1);
+	
+	
+	//system("pause");
 	//smiecie,smiecie
 	
 	
@@ -31,5 +44,6 @@ int main(){
 
 	//}
 	//Gra.ShowWinner();	
-	system("Pause");
+	
+	return 0;
 }

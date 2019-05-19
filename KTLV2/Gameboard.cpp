@@ -1,15 +1,14 @@
 #include "Gameboard.h"
 #include <time.h>
 
-bool Gameboard::isNext(int* row, int x, int j)
+int Gameboard::isNext(int* row, int x, int j)
 {
-
 	for (int i = j; i < setCard; ++i)
 	{
 		if (row[i] > x) break;
-		if (row[i] == x) return true;
+		if (row[i] == x) return setX[i].value;
 	}
-	return false;
+	return -1;
 }
 
 bool Gameboard::isValid()
@@ -21,7 +20,7 @@ bool Gameboard::isValid()
 		for (int j = i + 1; j <setCard; ++j)
 		{
 			if (distMatrix[i][j] == 0) continue;
-			while (isNext(distMatrix[i], distMatrix[i][j] * multiplier, j))
+			while (isNext(distMatrix[i], distMatrix[i][j] * multiplier, j)!=-1)
 			{
 				currentSize++;
 				multiplier++;
@@ -32,11 +31,11 @@ bool Gameboard::isValid()
 	return false;
 }
 
-Gameboard::Gameboard(int sequenceLength, int setCard, int range)
+Gameboard::Gameboard(int sequenceLength, int setCard,int range)
 {
 	this->sequenceLenght = sequenceLength;
 	this->setCard = setCard;
-	this->range = range;
+	this->range =range;
 	this->distMatrix = new int*[setCard];
 
 
@@ -47,12 +46,15 @@ Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 	}
 	do
 	{
+		cout << "Generating set" << endl;
 		generateSet();
 
 	} while (!isValid());
 
-
+	cout << "Valid set generated" << endl;
+	ShowGameboard();
 	generateHypergraph();
+	showHypergraph();
 }
 
 void Gameboard::generateSet()
@@ -101,9 +103,8 @@ void Gameboard::generateDistMatrix()
 
 void Gameboard::generateHypergraph()
 {
-
 	int index = 0;
-	vector<int> v;
+	vector<int>* v = new vector<int>();
 
 	for (int i = 0; i < setCard; ++i)
 	{
@@ -111,27 +112,38 @@ void Gameboard::generateHypergraph()
 		int multiplier = 1;
 		for (int j = i + 1; j < setCard; ++j)
 		{
-
-			while (isNext(distMatrix[i], distMatrix[i][j] * multiplier, j))
+			while (true)
 			{
+				int next = isNext(distMatrix[i], distMatrix[i][j] * multiplier, j);
+				if (next == -1) break;
 				currentSize++;
 				multiplier++;
-				v.push_back(setX[i].value);
-
+				v->push_back(next);
 			}
 			if (currentSize > sequenceLenght)
 			{
-
-				hypergraph.push_back(v);
-
+				hypergraph.push_back(*v);
 			}
-			v.clear();
+			v = new vector<int>();
+			currentSize = 0;
+			multiplier = 1;
 		}
-
-
 	}
+}
 
+void Gameboard::showHypergraph()
+{
+	cout << "Hipergraf: " << endl;
 
+	for (int i = 0; i < hypergraph.size(); ++i)
+
+	{
+		for (int j = 0; j < hypergraph[i].size(); ++j)
+		{
+			cout << hypergraph[i][j] << " ";
+		}
+		cout << endl;
+	}
 }
 
 Gameboard::~Gameboard()
@@ -165,14 +177,47 @@ void Gameboard::ShowGameboard()
 		if (setX[i].colour == 1)
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_RED);
-			cout << setX[i].value;
+			cout << setX[i].value << "  ";
 		}
-		if (setX[i].colour == 2)
+		else if (setX[i].colour == 2)
 
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_BLUE);
-			cout << setX[i].value;
+			cout << setX[i].value << "  ";
 		}
-		SetConsoleTextAttribute(hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
+		else
+		{
+			SetConsoleTextAttribute(hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
+			cout << setX[i].value << " ";
+		}
+	}
+	cout << endl;
+}
+
+void Gameboard::Degree(Node n)
+{
+	//pewnie to zmienie jeszcze
+	vector<vector<int>> h = hypergraph;
+	int k = sequenceLenght;
+	//int m = 0;
+	for (int i = 0; i < h.size(); i++)
+	{
+		int m = h.size() - sequenceLenght;
+		while (m > 0)
+		{
+			for (int j = m; j < k; j++)
+			{
+				if (h[i][j] == n.value) n.degree++;
+			}
+			m--;
+		}
+	}
+}
+
+void Gameboard::Degrees()
+{
+	for (int i = 0; i < setX.size(); i++)
+	{
+		Degree(setX[i]);
 	}
 }

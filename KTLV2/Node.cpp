@@ -1,15 +1,12 @@
 #include "Node.h"
 
 
-void Node::setDegree(int sequenceLenght, vector<vector<int>>& hypergraph )
+int Node::setDegree(int n, vector<vector<int>> h)
 {
-	//pewnie to zmienie jeszcze
-	vector<vector<int>> h = hypergraph;
-	int n = sequenceLenght;
-	//int m = 0;
+	int m = 0;
 	for (int i = 0; i < h.size(); i++)
 	{
-		int m = h.size() - sequenceLenght;
+		int m = h.size() - n;
 		while (m > 0)
 		{
 			for (int j = m; j < n; j++)
@@ -19,6 +16,7 @@ void Node::setDegree(int sequenceLenght, vector<vector<int>>& hypergraph )
 			m--;
 		}
 	}
+	return degree;
 }
 
 void Node::setPotential(int p)

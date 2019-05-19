@@ -16,7 +16,8 @@ void Player::ShowMove()
 
 bool Player::IsWinner()
 {
-	return strategy->End(gb, colour);		//winner w zalezosci od strategii
+	gra->ifWinner = strategy->End(gb, colour);
+	return gra->ifWinner;		//winner w zalezosci od strategii
 }
 
 void Player::TakeNode()
