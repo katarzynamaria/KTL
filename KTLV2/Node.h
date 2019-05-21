@@ -7,11 +7,11 @@ struct Node
 	int value;			 //jego wartoœæ
 	int colour;			 //przypisany kolor: domyœlnie 0
 	double potential;	 // funkcje potencjalu jeszcze wymyslimy ;)
-	int degree;			 // liczba ciagow do ktorych nalezy
+	vector<int> degree;			 // ciagi do ktorych nalezy
 
 					 //konstruktory
-	Node() : value(0), colour(0), potential(0), degree(0) {};
-	Node(int v, int col = 0, double pot = 0) : value(v), colour(col), potential(pot),degree(0)
+	Node() : value(0), colour(0), potential(0){};
+	Node(int v, int col = 0, double pot = 0) : value(v), colour(col), potential(pot)
 	{};
 
 	//do porownywania wierzcholkow (do sorta)
@@ -28,7 +28,6 @@ struct Node
 		return value - rv.value;
 	}
 	
-	int setDegree(int ,vector<vector<int>> h);
-	void setPotential(int);
-
+	//int setDegree(int ,vector<vector<int>> h);
+	//void setPotential(int);
 };

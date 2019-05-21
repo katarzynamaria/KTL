@@ -24,9 +24,10 @@ int main(){
 	Game gra(x, k, strategy);
 	
 	//Gameboard plansza(k,x,30);
-	//plansza.ShowGameboard();
+
 	//Player* gracz1 = new Player(new Maker, plansza, 1);
 	
+
 	
 	//system("pause");
 	//smiecie,smiecie

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Game::Game(int x, int k, int strategy) : gb(k, x, 100)
+Game::Game(int x, int k, int strategy) : gb(k, x, k*x)
 {	
 	this->strategy = strategy;
 	cout << "skonczylem tworzyc plansze" << endl;
@@ -14,7 +14,7 @@ Game::~Game()
 }
 
 void Game::GameStart(int &k, int &x, int& strategy)
-{
+{ 
 	cout << "----------- START GRY -----------" << endl;
 	cout << "Moc zbioru X: ";
 	cin >> x;
@@ -32,7 +32,7 @@ void Game::GameStart(int &k, int &x, int& strategy)
 
 
 
-bool Game::EndOfGame(Gameboard& gb)
+bool Game::EndOfGame()
 {
 	if (ifWinner)
 	{
@@ -42,10 +42,16 @@ bool Game::EndOfGame(Gameboard& gb)
 	return false;
 }
 
-void Game::ShowStatus(Gameboard& gb)
+void Game::ShowStatus()
 {
 	//to nie wszystko, jeszcze cos sie na pewno pojawi
 	gb.ShowGameboard();
+}
+
+void Game::PlayerMove(int k) 
+{
+	cout << "RUCH GRACZA: " << k << endl;
+
 }
 
 

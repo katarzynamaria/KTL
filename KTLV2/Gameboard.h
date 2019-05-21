@@ -21,7 +21,7 @@ class Gameboard
 
 public:
 
-	Gameboard(int sequenceLength = 4, int setCard = 100,int range=1000);
+	Gameboard(int sequenceLength = 4, int setCard = 30,int range=100);
 	~Gameboard();		
 
 
@@ -29,21 +29,20 @@ public:
 	bool isValid();					//sprawdza czy dany zbior spełnia warunki aby rozpoczęła się gra
 	int LastMove();				    // wyciaga jaki ruch byl ostatni (do strategi parujacej M-B(1))
 	void ShowGameboard();			//pokazuje aktualny stan gry
-
 	//gety
 	vector<Node> GetSetX() { return this->setX; }
 	int GetSequenceLenght() { return this->sequenceLenght; }
 	vector<vector<int>> GetHypergraph() { return this->hypergraph; }
-
+    
 	void colorField(int index, int colour)
 	{
 		lastColoredField = index;
 		setX[index].colour = colour;
 	};
-
+	vector<int> sequencePotetial;
 private:
-	void Degree(Node h);//funckja zapisująca stopnie wierzchołka
-	void Degrees(); // tablica stopni wierzchołków
+	//void Degree(Node h);//funckja zapisująca stopnie wierzchołka
+	//void Degrees(); // tablica stopni wierzchołków
 	int isNext(int* tab, int x, int j); //sprawdza czy kolejny wierzchołek jest kolejnym elementem ciągu arytmetycznego, dla którego x jest poprzednim wyrazem 
 	void generateSet();					// generuje zbiór liczb do kolorowania
 	void getRandomNumbers();			//do tworzenia ciągów liczb losowych
@@ -58,4 +57,5 @@ private:
 		return Abs(setX[x], setX[y]);		//przeci¹¿one odejmowanie (szczegoly w Game.h)
 	}
 	void showHypergraph();
+
 };

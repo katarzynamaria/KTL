@@ -1,7 +1,7 @@
 #include "Node.h"
 
 
-int Node::setDegree(int n, vector<vector<int>> h)
+/*int Node::setDegree(int n, vector<vector<int>> h)
 {
 	int m = 0;
 	for (int i = 0; i < h.size(); i++)
@@ -17,8 +17,8 @@ int Node::setDegree(int n, vector<vector<int>> h)
 		}
 	}
 	return degree;
-}
-
+}*/
+/*
 void Node::setPotential(int p)
 {
 	if (potential == 0)
@@ -28,4 +28,4 @@ void Node::setPotential(int p)
 	}
 	potential = p;
 }
-
+*/

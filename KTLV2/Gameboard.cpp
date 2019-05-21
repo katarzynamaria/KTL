@@ -31,6 +31,8 @@ bool Gameboard::isValid()
 	return false;
 }
 
+
+
 Gameboard::Gameboard(int sequenceLength, int setCard,int range)
 {
 	this->sequenceLenght = sequenceLength;
@@ -114,11 +116,14 @@ void Gameboard::generateHypergraph()
 		{
 			while (true)
 			{
-				int next = isNext(distMatrix[i], distMatrix[i][j] * multiplier, j);
-				if (next == -1) break;
+				Node next;
+				next.value = isNext(distMatrix[i], distMatrix[i][j] * multiplier, j);
+				if (next.value == -1) break;
 				currentSize++;
 				multiplier++;
-				v->push_back(next);
+				v->push_back(next.value);
+				next.degree.push_back(i);
+				
 			}
 			if (currentSize > sequenceLenght)
 			{
@@ -146,25 +151,24 @@ void Gameboard::showHypergraph()
 	}
 }
 
-Gameboard::~Gameboard()
+Gameboard::~Gameboard()//destruktor do zwolnienia pamiêci
 {
 
 	for (int i = 0; i < setCard; ++i)
 	{
 		delete[] distMatrix[i];
-		hypergraph[i].clear();
 	}
 }
 
 
-int Gameboard::LastMove()
+int Gameboard::LastMove()//przechowuje informacje o graczu który ostatnio wykona³ ruch
 {
 	return lastColoredField;
 }
 
 
 
-void Gameboard::ShowGameboard()
+void Gameboard::ShowGameboard() //w zale¿noœci od tego jaki gracz wykona³ ruch kolorujemy liczby na czerwonno lub niebiesko
 {
 	HANDLE hOut;
 	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -194,30 +198,3 @@ void Gameboard::ShowGameboard()
 	cout << endl;
 }
 
-void Gameboard::Degree(Node n)
-{
-	//pewnie to zmienie jeszcze
-	vector<vector<int>> h = hypergraph;
-	int k = sequenceLenght;
-	//int m = 0;
-	for (int i = 0; i < h.size(); i++)
-	{
-		int m = h.size() - sequenceLenght;
-		while (m > 0)
-		{
-			for (int j = m; j < k; j++)
-			{
-				if (h[i][j] == n.value) n.degree++;
-			}
-			m--;
-		}
-	}
-}
-
-void Gameboard::Degrees()
-{
-	for (int i = 0; i < setX.size(); i++)
-	{
-		Degree(setX[i]);
-	}
-}

@@ -44,8 +44,8 @@ bool Maker::End(Gameboard gb, int c)
 
 void Maker::ChangePotential(Node& moveMade, vector<Node>& X)
 {
-	int d = moveMade.degree;
-	moveMade.potential = 0;
+	//int d = moveMade.;
+	//moveMade.potential = 0;
 
 }
 
@@ -113,8 +113,12 @@ bool BreakerHard::End(Gameboard gd, int c)
 }
 
 
-void BreakerHard::ChangePotential(Node& moveMade, vector<Node>& X)
+void BreakerHard::ChangePotential(Node& moveMade, vector<Node>& X,Gameboard gb) 
 {
-
+	if (moveMade.potential >= pow(2, gb.GetSequenceLenght()))
+		for(int i=0; i< moveMade.degree.size();++i)
+		moveMade.degree[i] *= pow(2, pow(-1,gb.LastMove()));  //potencja³ siê zmniejsza je¿eli wybra³ go gracz 1- u nas Breaker
+	else for (int i = 0; i < moveMade.degree.size(); ++i)
+		moveMade.degree[i] = 1-gb.LastMove();
 
 }

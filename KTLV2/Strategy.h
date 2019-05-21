@@ -33,5 +33,5 @@ class BreakerHard : public Strategy //strategii potencjalow
 public:
 	virtual int ChooseNode(vector<Node>);
 	virtual bool End(Gameboard, int);
-	virtual void ChangePotential(Node&, vector<Node>&);
+	virtual void ChangePotential(Node&, vector<Node>&,Gameboard);
 };
