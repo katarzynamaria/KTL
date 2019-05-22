@@ -3,12 +3,12 @@
 #include "Strategy.h"
 using namespace std;
 
-int main(){
+int main() {
 
 	srand(time(NULL));
 
-	int x=0, k=0, strategy;
-	
+	int x = 0, k = 0, strategy;
+
 	cout << "----------- START GRY -----------" << endl;
 	while (x <= 2 * k + 1)
 	{
@@ -16,18 +16,19 @@ int main(){
 		cin >> x;
 		cout << "Dlugosc ciagu: ";
 		cin >> k;
-		if (x <= 2 * k + 1) cout << "Niepoprawne dane. Wpisz jeszcze raz"<<endl;
+		if (x <= 2 * k + 1) cout << "Niepoprawne dane. Wpisz jeszcze raz" << endl;
 	}
-		cout << "Strategie gracza: " << endl;
-		cout << "1 - agresywny vs agresywny" << endl;
-		cout << "2 - agresywny vs defensywny(naiwny)" << endl;
-		cout << "3 - agresywny vs defensywny" << endl;
-		cout << "Wybrana strategia: ";
-		cin >> strategy;
+	cout << "Strategie gracza: " << endl;
+	cout << "1 - agresywny vs agresywny" << endl;
+	cout << "2 - agresywny vs defensywny(naiwny)" << endl;
+	cout << "3 - agresywny vs defensywny" << endl;
+	cout << "Wybrana strategia: ";
+	cin >> strategy;
+
 	
-	Game gra(x, k, strategy);
-	gra.AddPlayer(new Maker(), 0);
-	gra.AddPlayer(new BreakerHard(), 1);
+	Game gra(x, k, strategy, new Gameboard(k, x, k*x));
+	gra.AddPlayer(new Maker(), 1);
+	gra.AddPlayer(new BreakerHard(), 2);
 
 	//system("pause");
 
@@ -42,6 +43,6 @@ int main(){
 
 	}
 
-	
+
 	return 0;
 }

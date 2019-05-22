@@ -20,7 +20,7 @@ bool Gameboard::isValid()
 		for (int j = i + 1; j <setCard; ++j)
 		{
 			if (distMatrix[i][j] == 0) continue;
-			while (isNext(distMatrix[i], distMatrix[i][j] * multiplier, j)!=-1)
+			while (isNext(distMatrix[i], distMatrix[i][j] * multiplier, j) != -1)
 			{
 				currentSize++;
 				multiplier++;
@@ -33,11 +33,11 @@ bool Gameboard::isValid()
 
 
 
-Gameboard::Gameboard(int sequenceLength, int setCard,int range)
+Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 {
 	this->sequenceLenght = sequenceLength;
 	this->setCard = setCard;
-	this->range =range;
+	this->range = range;
 	this->distMatrix = new int*[setCard];
 
 
@@ -84,9 +84,9 @@ void Gameboard::getRandomNumbers() //Tworzymy zbiór randomowych liczb
 	iota(begin(notYetGenerated), end(notYetGenerated), 1);
 
 
-	Node v=*new Node();									//tutaj dostosowalam do nowego setX
+	Node v = *new Node();									//tutaj dostosowalam do nowego setX
 	for (int i = 0; i < setCard; i++)
-	{	
+	{
 		int index = rand() % notYetGenerated.size();
 		//int number = notYetGenerated[index];
 		v.value = notYetGenerated[index];
@@ -131,7 +131,7 @@ void Gameboard::generateHypergraph()
 				multiplier++;
 				v->push_back(next.value);
 				next.degree.push_back(i);
-				
+
 			}
 			if (currentSize >= sequenceLenght)
 			{
@@ -159,7 +159,7 @@ void Gameboard::showHypergraph()
 	}
 }
 
-Gameboard::~Gameboard()			//destruktor do zwolnienia pamiêci
+Gameboard::~Gameboard()			//destruktor do zwolnienia pami?ci
 {
 
 	for (int i = 0; i < setCard; ++i)
@@ -169,14 +169,15 @@ Gameboard::~Gameboard()			//destruktor do zwolnienia pamiêci
 }
 
 
-int Gameboard::LastMove()		//przechowuje informacje o graczu który ostatnio wykona³ ruch
+int Gameboard::LastMove()		//przechowuje informacje o graczu który ostatnio wykona? ruch
 {
+	cout << "lastMove " << lastColoredField << endl;
 	return lastColoredField;
 }
 
 
 
-void Gameboard::ShowGameboard() //w zale¿noœci od tego jaki gracz wykona³ ruch kolorujemy liczby na czerwonno lub niebiesko
+void Gameboard::ShowGameboard() //w zale?no?ci od tego jaki gracz wykona? ruch kolorujemy liczby na czerwonno lub niebiesko
 {
 	HANDLE hOut;
 	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -205,4 +206,3 @@ void Gameboard::ShowGameboard() //w zale¿noœci od tego jaki gracz wykona³ ruch k
 	}
 	cout << endl;
 }
-
