@@ -1,8 +1,12 @@
 #include "Game.h"
+#include <time.h>
 #include "Strategy.h"
 using namespace std;
 
 int main(){
+
+	srand(time(NULL));
+
 	int x=0, k=0, strategy;
 	
 	cout << "----------- START GRY -----------" << endl;
@@ -22,29 +26,22 @@ int main(){
 		cin >> strategy;
 	
 	Game gra(x, k, strategy);
-	
-	//Gameboard plansza(k,x,30);
+	gra.AddPlayer(new Maker(), 0);
+	gra.AddPlayer(new BreakerHard(), 1);
 
-	//Player* gracz1 = new Player(new Maker, plansza, 1);
-	
-
-	
 	//system("pause");
-	//smiecie,smiecie
-	
-	
 
-	//while (!gra.EndOfGame(gracz2))
-	//{
-	//	gra.PlayerMove(gracz1);
-	//	gra.PlayerMove(gracz2);
-	//	gra.ShowStatus();
+	while (true)
+	{
+		gra.PlayerMove(0);
+		if (gra.EndOfGame()) break;
+		gra.PlayerMove(1);
+		if (gra.EndOfGame()) break;
+		gra.ShowStatus();
 
-		//tutaj moze ty wygladac inaczej w zale¿noœci od tego czy bêdziemy sprawdzaæ kryterium zwyciestwa
-		//po ka¿dym ruchu, czy po ka¿dej 'turze' (tj. dwóch ruchach)
 
-	//}
-	//Gra.ShowWinner();	
+	}
+
 	
 	return 0;
 }

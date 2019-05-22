@@ -13,6 +13,11 @@ Game::~Game()
 {
 }
 
+bool Game::isWinner(int k)
+{
+	return players[k]->IsWinner();
+}
+
 void Game::GameStart(int &k, int &x, int& strategy)
 { 
 	cout << "----------- START GRY -----------" << endl;
@@ -34,29 +39,34 @@ void Game::GameStart(int &k, int &x, int& strategy)
 
 bool Game::EndOfGame()
 {
-	if (ifWinner)
-	{
-		cout << "wygrywa grzacz " << gb.LastMove() << endl;
-		return true;
-	}
+
+	if (isWinner(0) || isWinner(1) )
+{	cout << "Wygrywa gracz " << gb.LastColour << endl;
+	return true;
+}
 	return false;
 }
 
 void Game::ShowStatus()
 {
-	//to nie wszystko, jeszcze cos sie na pewno pojawi
+	//to nie wszystko, jeszcze cos sie na pewno pojawi  CIEKAWWE KIEDY x
+
 	gb.ShowGameboard();
 }
 
-void Game::PlayerMove(int k) 
+void Game::PlayerMove(int k) //gracz-0 lub 1
 {
-	cout << "RUCH GRACZA: " << k << endl;
+	players[k]->TakeNode();
+	cout << "RUCH GRACZA: " << k+1 << endl;
+	cout << gb.LastMove() << endl;
 
 }
 
+void Game::AddPlayer(Strategy* st,int colour)
+{
+	Player* player = new Player(st, gb,colour);
+	players.push_back(player);
+}
 
-//void Game::PlayerMove(Player& p)
-//{
-//p.changeCurrentLenght();
-//}
+
 

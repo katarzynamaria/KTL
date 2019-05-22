@@ -56,12 +56,20 @@ Gameboard::Gameboard(int sequenceLength, int setCard,int range)
 	cout << "Valid set generated" << endl;
 	ShowGameboard();
 	generateHypergraph();
+	setPotentials();
 	showHypergraph();
+}
+
+void Gameboard::setPotentials()
+{
+	for (int i = 0; i < setX.size(); ++i)
+	{
+		setX[i].setPotential();
+	}
 }
 
 void Gameboard::generateSet()
 {
-
 	getRandomNumbers();
 	sort(setX.begin(), setX.end());
 	generateDistMatrix();
@@ -70,15 +78,15 @@ void Gameboard::generateSet()
 
 void Gameboard::getRandomNumbers() //Tworzymy zbiór randomowych liczb 
 {
+	setX.clear();
 	vector<int> notYetGenerated(range);
 
 	iota(begin(notYetGenerated), end(notYetGenerated), 1);
 
-	srand(time(NULL));
 
-	Node v;									//tutaj dostosowalam do nowego setX
+	Node v=*new Node();									//tutaj dostosowalam do nowego setX
 	for (int i = 0; i < setCard; i++)
-	{
+	{	
 		int index = rand() % notYetGenerated.size();
 		//int number = notYetGenerated[index];
 		v.value = notYetGenerated[index];
@@ -125,7 +133,7 @@ void Gameboard::generateHypergraph()
 				next.degree.push_back(i);
 				
 			}
-			if (currentSize > sequenceLenght)
+			if (currentSize >= sequenceLenght)
 			{
 				hypergraph.push_back(*v);
 			}
@@ -151,7 +159,7 @@ void Gameboard::showHypergraph()
 	}
 }
 
-Gameboard::~Gameboard()//destruktor do zwolnienia pamiêci
+Gameboard::~Gameboard()			//destruktor do zwolnienia pamiêci
 {
 
 	for (int i = 0; i < setCard; ++i)
@@ -161,7 +169,7 @@ Gameboard::~Gameboard()//destruktor do zwolnienia pamiêci
 }
 
 
-int Gameboard::LastMove()//przechowuje informacje o graczu który ostatnio wykona³ ruch
+int Gameboard::LastMove()		//przechowuje informacje o graczu który ostatnio wykona³ ruch
 {
 	return lastColoredField;
 }

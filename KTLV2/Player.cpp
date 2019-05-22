@@ -1,7 +1,6 @@
 #include "Player.h"
 
-
-Player::Player(Strategy* s, Gameboard& g, int c) : strategy(s), gb(g), colour(c)
+Player::Player(Strategy* strategy, Gameboard& g, int colour) : strategy(strategy), gb(g), colour(colour)
 {
 }
 
@@ -10,17 +9,21 @@ Player::~Player()
 {
 }
 
-void Player::ShowMove()
-{
-}
 
 bool Player::IsWinner()
 {
-	gra->ifWinner = strategy->End(gb, colour);
-	return gra->ifWinner;		//winner w zalezosci od strategii
+	int k = 0;
+	vector<Node> X = gb.GetSetX();
+	for (int i = 0; i < X.size(); i++)
+	{
+		if (X[i].colour == colour) k++;
+	}
+	if (k == (int)(X.size() / 2)) return true;        //breaker ma wszystkie swoje ruchy za soba
+	else return false;
+	return true;
 }
 
-void Player::TakeNode()
+void Player::TakeNode()	//odpowiada za wybrnie odpowiedniego wierzcho³ka
 {
 	vector<Node> X = gb.GetSetX();
 	gb.colorField(strategy->ChooseNode(X), colour);
@@ -29,5 +32,5 @@ void Player::TakeNode()
 void Player::ChangePotential(Node& moveMade)
 {
 	vector<Node> X = gb.GetSetX();
-	strategy->ChangePotential(moveMade, X);
+	strategy->ChangePotential(moveMade, X,gb);
 }
