@@ -27,7 +27,7 @@ void Player::TakeNode()	//odpowiada za wybrnie odpowiedniego wierzcholka
 {
 	//cout << "Started taking node!" << endl;
 	vector<vector<Node*>> X = gb->GetHypergraph();
-	gb->colorField(strategy->ChooseNode(X,gb), colour);
+	gb->colorField(strategy->ChooseNode(X, gb), colour);
 	//cout << "Finished taking node!" << endl;
 }
 

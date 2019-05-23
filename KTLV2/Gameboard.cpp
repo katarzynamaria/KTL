@@ -3,9 +3,9 @@
 
 void Gameboard::colorField(int index, int colour) //przypisuje wartosc ostatniego pomalowanego wierzcholka zmennej lastColoredFiled 
 {
-		lastColoredField = setX[index].value;
-		
-		setX[index].colour = colour;
+	lastColoredField = setX[index].value;
+
+	setX[index].colour = colour;
 }
 int Gameboard::findIndexOf(int value)
 {
@@ -13,7 +13,7 @@ int Gameboard::findIndexOf(int value)
 	{
 		if (setX[i] == value) return i;
 	}
-	cout << "CRITICAL FAIL - CAN't find" <<value<< " in setX";
+	cout << "CRITICAL FAIL - CAN't find" << value << " in setX";		//CRITICAL FAIL XDDDDDDDDDDD
 	return -1;
 }
 ;
@@ -65,7 +65,7 @@ bool Gameboard::isValid()								//sprawdza czy dany set ma ciag arytmetyczny w 
 
 
 
-Gameboard::Gameboard(int sequenceLength, int setCard, int range) 
+Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 {
 	this->sequenceLenght = sequenceLength;
 	this->setCard = setCard;
@@ -94,11 +94,11 @@ Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 }
 
 
-void Gameboard::setDegrees(vector<Node*>& hiperval,int iter) //ustawia degrees dla wszystkich wierzcholkow w setX
+void Gameboard::setDegrees(vector<Node*>& hiperval, int iter) //ustawia degrees dla wszystkich wierzcholkow w setX
 {
 	for (int i = 0; i < setX.size(); ++i)
 	{
-		setX[i].setDegree(&hiperval,iter);
+		setX[i].setDegree(&hiperval, iter);
 	}
 }
 void Gameboard::setPotentials()							//ustawia potencial dla wszystkich wierzcholkow w setX
@@ -181,18 +181,19 @@ void Gameboard::generateHypergraph()					//generuje hipergraf
 				multiplier++;
 				Node* node = findNodeWithValue(value);
 				v->push_back(node);
-				
+
 			}
 			if (currentSize >= sequenceLenght) //jezeli wybrany wyzej ciag jest dlugosci wiekszej niz k to go dodajemy do hipergrafu
 			{
 				hypergraph.push_back(*v);
-				setDegrees(*v , hypergraph.size()-1);
+				setDegrees(*v, hypergraph.size() - 1);
 			}
 			v = new vector<Node*>();
 			currentSize = 0;
 			multiplier = 1;
 		}
 	}
+	seqYetToChoose = hypergraph.size();
 }
 
 void Gameboard::showHypergraph() //wypisuje hipergraf
@@ -222,7 +223,6 @@ Gameboard::~Gameboard()			//destruktor do zwolnienia pamieci
 
 int Gameboard::LastMove()		//przechowuje informacje o graczu który ostatnio wykona? ruch
 {
-	cout << "lastMove " << lastColoredField << endl;
 	return lastColoredField;
 }
 
@@ -240,18 +240,18 @@ void Gameboard::ShowGameboard() //w zale?no?ci od tego jaki gracz wykona? ruch k
 		if (setX[i].colour == 1)
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_RED);
-			cout << setX[i].value << " ";
+			cout << setX[i].value <<"." << setX[i].potential << " ";
 		}
 		else if (setX[i].colour == 2)
 
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_BLUE);
-			cout << setX[i].value << " ";
+			cout << setX[i].value << "." << setX[i].potential << " ";
 		}
 		else
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
-			cout << setX[i].value << " ";
+			cout << setX[i].value << "." << setX[i].potential << " ";
 		}
 
 		SetConsoleTextAttribute(hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);

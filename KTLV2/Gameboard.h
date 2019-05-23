@@ -19,8 +19,11 @@ class Gameboard
 	vector<vector<Node*>> hypergraph; //hipergraf przechowujący ciągi arytmetyczne w grze
 	int lastColoredField;	//przechowuje ostatni wierzchołek wykorzystany w grze
 
+
 public:
 	int LastColour;
+	int seqYetToChoose;
+
 	Gameboard(int sequenceLength = 4, int setCard = 30, int range = 100);
 	void setDegrees(vector<Node*>&, int);
 	~Gameboard();
@@ -40,12 +43,13 @@ public:
 	void colorField(int index, int colour);
 	int findIndexOf(int value);
 	vector<int> sequencePotetial;
+	Node* findNodeWithValue(int value);
 private:
 	int isNext(int* tab, int x, int j); //sprawdza czy kolejny wierzchołek jest kolejnym elementem ciągu arytmetycznego, dla którego x jest poprzednim wyrazem 
 	void generateSet();					// generuje zbiór liczb do kolorowania
 	void getRandomNumbers();			//do tworzenia ciągów liczb losowych
 	void generateHypergraph();			// tworzy hipergraf
-	
+
 	int Abs(Node n, Node m)
 	{
 		if (n < m) return m - n;
@@ -59,6 +63,5 @@ private:
 
 	void showHypergraph();
 	void setPotentials();
-	Node* findNodeWithValue(int value);
+	
 };
-

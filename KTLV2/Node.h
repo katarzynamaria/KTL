@@ -10,7 +10,7 @@ struct Node
 	int colour;			 //przypisany kolor: domy?lnie 0
 	double potential;	 // funkcje potencjalu jeszcze wymyslimy ;)
 	vector<int> degree;	 // indeksy wierszy z hipergrafu w których dany node si? znajduje
-	bool visited;		 //	czy dany wierzcho³ek zosta³ wybrany
+	bool visited;		 //	czy dany wierzcho?ek zosta? wybrany
 						 //konstruktory
 	Node() : value(0), colour(0), potential(0), visited(0) {};
 	Node(int v, int col = 0) : value(v), colour(col), potential(0), visited(0) {};
@@ -31,15 +31,15 @@ struct Node
 	void setDegree(vector<Node*>* values, int iter)
 	{
 		vector<Node*> v = *values;
-		for (int i = 0; i < values->size();++i)
+		for (int i = 0; i < values->size(); ++i)
 		{
 
 			if (v[i]->value == this->value) degree.push_back(iter);
 		}
-	}//je¿eli dana wartoœæ jest równa wierzcho³kowi to zapisujemy wiersz w degree}
-	
-	void setPotential() 
-	{ 
+	}//je?eli dana warto?? jest równa wierzcho?kowi to zapisujemy wiersz w degree}
+
+	void setPotential()
+	{
 		if (this->degree.size() != 0) potential = pow(2, -1 * (int)(this->degree.size()));
 	}
 };

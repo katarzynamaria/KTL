@@ -1,9 +1,9 @@
-#include "Game.h"
+ï»¿#include "Game.h"
 #include <iostream>
 
 using namespace std;
 
-Game::Game(int x, int k, int strategy, Gameboard* g) 
+Game::Game(int x, int k, int strategy, Gameboard* g)
 {
 	gb = g;
 	this->strategy = strategy;
@@ -21,12 +21,19 @@ bool Game::isWinner(int k)  //sprawdza czy dany gracz jest zwyciezca
 }
 
 
-bool Game::EndOfGame()  //konczy gre jezeli ktorys z graczy jest zwyciezca +trzeba koñczyæ jezeli ju¿ nie ma ruchów
+bool Game::EndOfGame()  //konczy gre jezeli ktorys z graczy jest zwyciezca +trzeba koÃ±czyÃ¦ jezeli juÂ¿ nie ma ruchÃ³w
 {
 
 	if (isWinner(0) || isWinner(1))
 	{
-		cout << "Wygrywa gracz " << gb->LastColour + 1<< endl;
+		cout << "Wygrywa gracz " << gb->LastColour + 1 << endl;
+		return true;
+	}
+
+	if (gb->seqYetToChoose == 0)
+	{
+		cout << "Koniec ciagow " << endl;
+		system("pause");
 		return true;
 	}
 	return false;
@@ -51,4 +58,3 @@ void Game::AddPlayer(Strategy* st, int colour) //dodaje graczy do Gry
 	Player* player = new Player(st, gb, colour);
 	players.push_back(player);
 }
-
