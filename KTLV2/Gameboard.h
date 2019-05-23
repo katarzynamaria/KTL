@@ -16,13 +16,13 @@ class Gameboard
 	int range;				//przedzial z którego losujemy liczby	
 	int sequenceLenght;		// długość ciągu arytmetycznego
 	int setCard;			// moc zbioru, który bedzimy kolorować
-	vector<vector<int>> hypergraph; //hipergraf przechowujący ciągi arytmetyczne w grze
+	vector<vector<Node*>> hypergraph; //hipergraf przechowujący ciągi arytmetyczne w grze
 	int lastColoredField;	//przechowuje ostatni wierzchołek wykorzystany w grze
 
 public:
 	int LastColour;
 	Gameboard(int sequenceLength = 4, int setCard = 30, int range = 100);
-	void setDegrees(vector<int>&, int);
+	void setDegrees(vector<Node*>&, int);
 	~Gameboard();
 
 
@@ -32,15 +32,13 @@ public:
 	void ShowGameboard();			//pokazuje aktualny stan gry
 									//gety- do wydobywania prywatnych wartości
 	vector<Node> GetSetX() { return this->setX; }
-	int GetSequenceLenght() { return this->sequenceLenght; }
-	vector<vector<int>> GetHypergraph() { return this->hypergraph; }
 
-	void colorField(int index, int colour)
-	{
-		lastColoredField = setX[index].value;
-		
-		setX[index].colour = colour;
-	};
+	int GetSequenceLenght() { return this->sequenceLenght; }
+
+	vector<vector<Node*>> GetHypergraph() { return this->hypergraph; }
+
+	void colorField(int index, int colour);
+	int findIndexOf(int value);
 	vector<int> sequencePotetial;
 private:
 	int isNext(int* tab, int x, int j); //sprawdza czy kolejny wierzchołek jest kolejnym elementem ciągu arytmetycznego, dla którego x jest poprzednim wyrazem 
@@ -61,5 +59,6 @@ private:
 
 	void showHypergraph();
 	void setPotentials();
+	Node* findNodeWithValue(int value);
 };
 

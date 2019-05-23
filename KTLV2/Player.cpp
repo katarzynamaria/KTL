@@ -23,15 +23,16 @@ bool Player::IsWinner()
 	return true;
 }
 
-void Player::TakeNode()	//odpowiada za wybrnie odpowiedniego wierzcho³ka
+void Player::TakeNode()	//odpowiada za wybrnie odpowiedniego wierzcholka
 {
-	vector<Node> X = gb->GetSetX();
+	//cout << "Started taking node!" << endl;
+	vector<vector<Node*>> X = gb->GetHypergraph();
 	gb->colorField(strategy->ChooseNode(X,gb), colour);
-	
+	//cout << "Finished taking node!" << endl;
 }
 
 void Player::ChangePotential(Node& moveMade)
 {
-	vector<Node> X = gb->GetSetX();
+	vector<vector<Node*>> X = gb->GetHypergraph();
 	strategy->ChangePotential(moveMade, X, gb);
 }

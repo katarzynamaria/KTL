@@ -26,10 +26,9 @@ bool Game::EndOfGame()  //konczy gre jezeli ktorys z graczy jest zwyciezca +trze
 
 	if (isWinner(0) || isWinner(1))
 	{
-		cout << "Wygrywa gracz " << gb->LastColour << endl;
+		cout << "Wygrywa gracz " << gb->LastColour + 1<< endl;
 		return true;
 	}
-	gb->colorField(0, 1);
 	return false;
 }
 

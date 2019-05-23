@@ -28,13 +28,13 @@ struct Node
 	{
 		return value - rv.value;
 	}
-	void setDegree(vector<int>* values, int iter)
+	void setDegree(vector<Node*>* values, int iter)
 	{
-		vector<int> v = *values;
+		vector<Node*> v = *values;
 		for (int i = 0; i < values->size();++i)
 		{
 
-			if (v[i] == this->value) degree.push_back(iter);
+			if (v[i]->value == this->value) degree.push_back(iter);
 		}
 	}//je¿eli dana wartoœæ jest równa wierzcho³kowi to zapisujemy wiersz w degree}
 	

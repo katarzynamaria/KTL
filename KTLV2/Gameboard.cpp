@@ -1,7 +1,26 @@
 #include "Gameboard.h"
 #include <time.h>
 
-int Gameboard::isNext(int* row, int x, int j)
+void Gameboard::colorField(int index, int colour) //przypisuje wartosc ostatniego pomalowanego wierzcholka zmennej lastColoredFiled 
+{
+		lastColoredField = setX[index].value;
+		
+		setX[index].colour = colour;
+}
+int Gameboard::findIndexOf(int value)
+{
+	for (int i = 0; i < setX.size(); ++i)
+	{
+		if (setX[i] == value) return i;
+	}
+	cout << "CRITICAL FAIL - CAN't find" <<value<< " in setX";
+	return -1;
+}
+;
+
+
+
+int Gameboard::isNext(int* row, int x, int j)				//szuka nastepnego wyrazu ciagu
 {
 	for (int i = j; i < setCard; ++i)
 	{
@@ -11,8 +30,9 @@ int Gameboard::isNext(int* row, int x, int j)
 	return -1;
 }
 
-bool Gameboard::isValid()
+bool Gameboard::isValid()								//sprawdza czy dany set ma ciag arytmetyczny w sobie
 {
+	vector<int> validSequence;
 	for (int i = 0; i < 2; i++)
 	{
 		int currentSize = 0;
@@ -22,10 +42,22 @@ bool Gameboard::isValid()
 			if (distMatrix[i][j] == 0) continue;
 			while (isNext(distMatrix[i], distMatrix[i][j] * multiplier, j) != -1)
 			{
+				validSequence.push_back(isNext(distMatrix[i], distMatrix[i][j] * multiplier, j));
 				currentSize++;
 				multiplier++;
 			}
-			if (currentSize >= sequenceLenght) return true;// WARTOSC LOGICZNA DO PRZEMYSLENIA;
+			if (currentSize >= sequenceLenght)
+			{
+				cout << "Valid sequence is: " << endl;
+				for (int h = 0; h < validSequence.size(); ++h)
+				{
+					cout << validSequence[h] << " ";
+				}
+				return true;
+			}
+			validSequence.clear();
+			currentSize = 0;
+			multiplier = 1;
 		}
 	}
 	return false;
@@ -33,7 +65,7 @@ bool Gameboard::isValid()
 
 
 
-Gameboard::Gameboard(int sequenceLength, int setCard, int range)
+Gameboard::Gameboard(int sequenceLength, int setCard, int range) 
 {
 	this->sequenceLenght = sequenceLength;
 	this->setCard = setCard;
@@ -48,26 +80,28 @@ Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 	}
 	do
 	{
-		cout << "Generating set" << endl;
+		//cout << "Generating set" << endl;
 		generateSet();
 
 	} while (!isValid());
 
-	cout << "Valid set generated" << endl;
+	//cout << endl << "Valid set generated" << endl;
 	ShowGameboard();
 
 	generateHypergraph();
 	setPotentials();
 	showHypergraph();
 }
-void Gameboard::setDegrees(vector<int>& hiperval,int iter)
+
+
+void Gameboard::setDegrees(vector<Node*>& hiperval,int iter) //ustawia degrees dla wszystkich wierzcholkow w setX
 {
 	for (int i = 0; i < setX.size(); ++i)
 	{
 		setX[i].setDegree(&hiperval,iter);
 	}
 }
-void Gameboard::setPotentials()
+void Gameboard::setPotentials()							//ustawia potencial dla wszystkich wierzcholkow w setX
 {
 	for (int i = 0; i < setX.size(); ++i)
 	{
@@ -75,7 +109,17 @@ void Gameboard::setPotentials()
 	}
 }
 
-void Gameboard::generateSet()
+Node* Gameboard::findNodeWithValue(int value)
+{
+	for (int i = 0; i < setX.size(); ++i)
+	{
+		if (setX[i].value == value) return &setX[i];
+	}
+	cout << "CRITICAL FAILURE! CAN'T FIND VALUE " << value << " IN setX" << endl;
+	return nullptr;
+}
+
+void Gameboard::generateSet()						//generuje randowmowy zbior x
 {
 	getRandomNumbers();
 	sort(setX.begin(), setX.end());
@@ -105,7 +149,7 @@ void Gameboard::getRandomNumbers() //Tworzymy zbiór randomowych liczb
 
 }
 
-void Gameboard::generateDistMatrix()
+void Gameboard::generateDistMatrix()			//generuje macierz odleglosci miedzy wierzcholkami
 {
 	for (int i = 0; i < setCard; ++i)
 	{
@@ -118,10 +162,10 @@ void Gameboard::generateDistMatrix()
 	}
 }
 
-void Gameboard::generateHypergraph()
+void Gameboard::generateHypergraph()					//generuje hipergraf
 {
 	int index = 0;
-	vector<int>* v = new vector<int>();
+	vector<Node*>* v = new vector<Node*>();
 
 	for (int i = 0; i < setCard; ++i)
 	{
@@ -131,27 +175,27 @@ void Gameboard::generateHypergraph()
 		{
 			while (true)
 			{
-				Node next;
-				next.value = isNext(distMatrix[i], distMatrix[i][j] * multiplier, j);
-				if (next.value == -1) break;
+				int value = isNext(distMatrix[i], distMatrix[i][j] * multiplier, j); //nastepny wyraz na podstawie IsNext
+				if (value == -1) break;
 				currentSize++;
 				multiplier++;
-				v->push_back(next.value);
+				Node* node = findNodeWithValue(value);
+				v->push_back(node);
 				
 			}
-			if (currentSize >= sequenceLenght)
+			if (currentSize >= sequenceLenght) //jezeli wybrany wyzej ciag jest dlugosci wiekszej niz k to go dodajemy do hipergrafu
 			{
-				setDegrees(*v , i);
 				hypergraph.push_back(*v);
+				setDegrees(*v , hypergraph.size()-1);
 			}
-			v = new vector<int>();
+			v = new vector<Node*>();
 			currentSize = 0;
 			multiplier = 1;
 		}
 	}
 }
 
-void Gameboard::showHypergraph()
+void Gameboard::showHypergraph() //wypisuje hipergraf
 {
 	cout << "Hipergraf: " << endl;
 
@@ -160,13 +204,13 @@ void Gameboard::showHypergraph()
 	{
 		for (int j = 0; j < hypergraph[i].size(); ++j)
 		{
-			cout << hypergraph[i][j] << " ";
+			cout << hypergraph[i][j]->value << " ";
 		}
 		cout << endl;
 	}
 }
 
-Gameboard::~Gameboard()			//destruktor do zwolnienia pami?ci
+Gameboard::~Gameboard()			//destruktor do zwolnienia pamieci
 {
 
 	for (int i = 0; i < setCard; ++i)
@@ -189,27 +233,27 @@ void Gameboard::ShowGameboard() //w zale?no?ci od tego jaki gracz wykona? ruch k
 	HANDLE hOut;
 	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	SetConsoleTextAttribute(hOut, FOREGROUND_RED);
-	SetConsoleTextAttribute(hOut, FOREGROUND_BLUE);
-
 	for (int i = 0; i < setCard; ++i)
 	{
+		SetConsoleTextAttribute(hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
+
 		if (setX[i].colour == 1)
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_RED);
-			cout << setX[i].value << "  ";
+			cout << setX[i].value << " ";
 		}
 		else if (setX[i].colour == 2)
 
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_BLUE);
-			cout << setX[i].value << "  ";
+			cout << setX[i].value << " ";
 		}
 		else
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
 			cout << setX[i].value << " ";
 		}
+
 		SetConsoleTextAttribute(hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
 	}
 	cout << endl;

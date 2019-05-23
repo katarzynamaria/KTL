@@ -35,10 +35,12 @@ int main() {
 	while (true)
 	{
 		gra.PlayerMove(0);
+		gra.ShowStatus();
 		if (gra.EndOfGame()) break;
 		gra.PlayerMove(1);
-		if (gra.EndOfGame()) break;
 		gra.ShowStatus();
+		if (gra.EndOfGame()) break;
+		//gra.ShowStatus();
 
 
 	}
