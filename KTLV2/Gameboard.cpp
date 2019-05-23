@@ -65,6 +65,21 @@ bool Gameboard::isValid()								//sprawdza czy dany set ma ciag arytmetyczny w 
 
 
 
+void Gameboard::SetPotential()
+{
+	cout << "setting potentials" << endl;
+	int k = 0;
+	for (int i = 0; i < hypergraph.size(); ++i)
+		
+		{
+			k = hypergraph[i].size();
+			Potential.push_back(pow(2, -k));
+		}
+		
+}
+	
+
+
 Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 {
 	this->sequenceLenght = sequenceLength;
@@ -86,10 +101,13 @@ Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 	} while (!isValid());
 
 	//cout << endl << "Valid set generated" << endl;
+	generateHypergraph();
+	//ShowDegrees();
+
+	SetPotential();
+	setPotentials();
 	ShowGameboard();
 
-	generateHypergraph();
-	setPotentials();
 	showHypergraph();
 }
 
@@ -105,7 +123,7 @@ void Gameboard::setPotentials()							//ustawia potencial dla wszystkich wierzch
 {
 	for (int i = 0; i < setX.size(); ++i)
 	{
-		setX[i].setPotential();
+		setX[i].setgValue(Potential);
 	}
 }
 
@@ -161,6 +179,8 @@ void Gameboard::generateDistMatrix()			//generuje macierz odleglosci miedzy wier
 
 	}
 }
+//void Gameboard::ShowDegrees() { for (int i = 0; i < setX.size(); ++i) cout << "size: " << setX[i].degree.size(); }
+
 
 void Gameboard::generateHypergraph()					//generuje hipergraf
 {
@@ -240,18 +260,18 @@ void Gameboard::ShowGameboard() //w zale?no?ci od tego jaki gracz wykona? ruch k
 		if (setX[i].colour == 1)
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_RED);
-			cout << setX[i].value <<"." << setX[i].potential << " ";
+			cout << setX[i].value <<"." << setX[i].gValue << " ";
 		}
 		else if (setX[i].colour == 2)
 
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_BLUE);
-			cout << setX[i].value << "." << setX[i].potential << " ";
+			cout << setX[i].value << "." << setX[i].gValue << " ";
 		}
 		else
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
-			cout << setX[i].value << "." << setX[i].potential << " ";
+			cout << setX[i].value << "." << setX[i].gValue << " ";
 		}
 
 		SetConsoleTextAttribute(hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);

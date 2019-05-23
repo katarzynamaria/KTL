@@ -23,6 +23,10 @@ class Gameboard
 public:
 	int LastColour;
 	int seqYetToChoose;
+	vector<double> Potential;
+
+	void SetPotential();
+	
 
 	Gameboard(int sequenceLength = 4, int setCard = 30, int range = 100);
 	void setDegrees(vector<Node*>&, int);
@@ -30,6 +34,7 @@ public:
 
 
 	void generateDistMatrix();		//generuje macierz odległośći na podstawie danych wstepnych
+	void ShowDegrees();
 	bool isValid();					//sprawdza czy dany zbior spełnia warunki aby rozpoczęła się gra
 	int LastMove();				    // wyciaga jaki ruch byl ostatni (do strategi parujacej M-B(1))
 	void ShowGameboard();			//pokazuje aktualny stan gry

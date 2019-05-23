@@ -8,11 +8,11 @@ int Maker::ChooseNode(vector<vector<Node*>>& H, Gameboard* gb)
 	int i = 0;
 	while (i < X.size())
 	{
-		if (X[i].potential >= max && X[i].colour == 0 ) //&& X[i].visited == false) //jest juz niepotrzebne
+		if (X[i].gValue >= max && X[i].colour == 0 ) //&& X[i].visited == false) //jest juz niepotrzebne
 		{
-			max = X[i].potential;
+			max = X[i].gValue;
 			v = i;
-			cout << "X[i].potential " << X[i].potential << endl;
+			cout << X[i].value <<".potential " << X[i].gValue << endl;
 		}
 		i++;
 	}
@@ -25,25 +25,25 @@ int Maker::ChooseNode(vector<vector<Node*>>& H, Gameboard* gb)
 
 void Maker::ChangePotential(Node& moveMade, vector<vector<Node*>>& hypegraph, Gameboard* gb)
 {
-	if (moveMade.potential < pow(2, gb->GetSequenceLenght()))
+	if (moveMade.gValue<1)
 	{
 		for (int i = 0; i < moveMade.degree.size(); ++i)
 		{
 			vector<Node*> nodes = hypegraph[moveMade.degree[i]];
+			gb->Potential[moveMade.degree[i]] *= pow(2, 1);
 			for (int j = 0; j < hypegraph[moveMade.degree[i]].size(); j++)
 			{
-				nodes[j]->potential *= pow(2, -1);  
+				//nodes[j]->setgValue[gb->Potential];
+				
 			}
 		}
+		
 	}
 	else 
 	{
-		for (int i = 0; i < moveMade.degree.size(); ++i)
-		{
-			for (int j = 0; j < hypegraph[moveMade.degree[i]].size(); i++)
-				hypegraph[moveMade.degree[i]][j]->potential = 1;
-		}
-		}
+		
+
+	}
 	moveMade.visited = true;
 }
 
@@ -78,8 +78,8 @@ void BreakerEasy::ChangePotential(Node& moveMade, vector<vector<Node*>>& X, Game
 {
 	for (int i = 0; i < moveMade.degree.size(); ++i)
 	{
-		for (int j = 0; j < X[i].size(); j++)
-			X[moveMade.degree[i]][j] = 0;
+		//for (int j = 0; j < X[i].size(); j++)
+		// X[moveMade.degree[i]][j] = 0;              tutaj tez trzeba zmienic
 	}
 	moveMade.visited = true;
 }
@@ -93,40 +93,37 @@ int BreakerHard::ChooseNode(vector<vector<Node*>>& H, Gameboard* gb)
 	int i = 0;
 	while (i < X.size())
 	{
-		if (X[i].potential >= max && X[i].colour == 0) //jezeli niewybrany wierzcholek ma wiekszy potencjal niz max
+		if (X[i].gValue >= max && X[i].colour == 0) //jezeli niewybrany wierzcholek ma wiekszy potencjal niz max
 		{
 
 
-			max = X[i].potential;
+			max = X[i].gValue;
 			v = i;
 
 		}
 		i++;
 	}
 	X[v].visited = true;
-	//cout << "Before change potential" << endl;
+	
 	ChangePotential(X[v], H, gb);				//zmieniamy potencjal wszystkich wierzcholkow, ktore sa w jakims ciagu z X[v] 
-												//cout << "After change potential" << endl;
+												
 	return v;									//X[v] jest wybranym przez nas maksymalnym wierzcholkiwm
 }
 
 void BreakerHard::ChangePotential(Node& moveMade, vector<vector<Node*>>& hypergraph, Gameboard* gb)
 {
-	if (moveMade.potential < pow(2, gb->GetSequenceLenght()))
-	{
 		for (int i = 0; i < moveMade.degree.size(); ++i)
 		{
 			vector<Node*> nodes = hypergraph[moveMade.degree[i]];
+			gb->Potential[moveMade.degree[i]] = 0;
 			for (int j = 0; j < hypergraph[moveMade.degree[i]].size(); j++)
 			{
-				//cout << "Before getting nodes for i = " << i << endl;
-				//cout << "Degree[i] = " << moveMade.degree[i] << endl;
-				
-				//cout << "Got nodes!" << endl;
-				nodes[j]->potential *= 0;  //wiercholek wybral Maker-zwiekszamy potencjal
+				//TUTAJ COŚTAM
 			}
 		}
-	}
+	
+
+
 	moveMade.visited = true;
 	gb->seqYetToChoose--;
 }

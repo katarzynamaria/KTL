@@ -8,12 +8,14 @@ struct Node
 
 	int value;			 //jego warto??
 	int colour;			 //przypisany kolor: domy?lnie 0
-	double potential;	 // funkcje potencjalu jeszcze wymyslimy ;)
 	vector<int> degree;	 // indeksy wierszy z hipergrafu w których dany node si? znajduje
-	bool visited;		 //	czy dany wierzcho?ek zosta? wybrany
+	bool visited;		 //	czy dany wierzcholek zostal wybrany
+	double gValue;		 //suma potencjalow wszystkich ciagow w do ktorych nalezy wierzcholek
+						 
+						 
 						 //konstruktory
-	Node() : value(0), colour(0), potential(0), visited(0) {};
-	Node(int v, int col = 0) : value(v), colour(col), potential(0), visited(0) {};
+	Node() : value(0), colour(0), gValue(0), visited(0) {};
+	Node(int v, int col = 0) : value(v), colour(col), gValue(0), visited(0) {};
 
 	//do porownywania wierzcholkow (do sorta)
 	bool operator==(const Node& v) const {
@@ -36,10 +38,17 @@ struct Node
 
 			if (v[i]->value == this->value) degree.push_back(iter);
 		}
-	}//je?eli dana warto?? jest równa wierzcho?kowi to zapisujemy wiersz w degree}
+	}//jezeli dana wartosc jest równa wierzcholkowi to zapisujemy wiersz w degree}
 
-	void setPotential()
+	
+
+	void setgValue(vector<double>& potential)
 	{
-		if (this->degree.size() != 0) potential = pow(2, -1 * (int)(this->degree.size()));
+		double k = 0;
+		for (int i = 0; i < degree.size(); i++)
+		{
+			k += potential[degree[i]];
+		}
+		gValue = k;
 	}
 };
