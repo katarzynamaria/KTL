@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <iostream>
 using namespace std;
 
 struct Node
@@ -9,10 +10,10 @@ struct Node
 	int colour;			 //przypisany kolor: domy?lnie 0
 	double potential;	 // funkcje potencjalu jeszcze wymyslimy ;)
 	vector<int> degree;	 // indeksy wierszy z hipergrafu w których dany node si? znajduje
-
+	bool visited;		 //	czy dany wierzcho³ek zosta³ wybrany
 						 //konstruktory
-	Node() : value(0), colour(0), potential(0) {};
-	Node(int v, int col = 0) : value(v), colour(col) {};
+	Node() : value(0), colour(0), potential(0), visited(0) {};
+	Node(int v, int col = 0) : value(v), colour(col), potential(0), visited(0) {};
 
 	//do porownywania wierzcholkow (do sorta)
 	bool operator==(const Node& v) const {
@@ -27,7 +28,18 @@ struct Node
 	{
 		return value - rv.value;
 	}
-	void setPotential() { potential = pow(2, -1 * (this->degree.size())); }
-	//int setDegree(int ,vector<vector<int>> h);
-	//void setPotential(int);
+	void setDegree(vector<int>* values, int iter)
+	{
+		vector<int> v = *values;
+		for (int i = 0; i < values->size();++i)
+		{
+
+			if (v[i] == this->value) degree.push_back(iter);
+		}
+	}//je¿eli dana wartoœæ jest równa wierzcho³kowi to zapisujemy wiersz w degree}
+	
+	void setPotential() 
+	{ 
+		if (this->degree.size() != 0) potential = pow(2, -1 * (int)(this->degree.size()));
+	}
 };

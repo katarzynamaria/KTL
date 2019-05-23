@@ -26,11 +26,12 @@ bool Player::IsWinner()
 void Player::TakeNode()	//odpowiada za wybrnie odpowiedniego wierzcho³ka
 {
 	vector<Node> X = gb->GetSetX();
-	gb->colorField(strategy->ChooseNode(X), colour);
+	gb->colorField(strategy->ChooseNode(X,gb), colour);
+	
 }
 
 void Player::ChangePotential(Node& moveMade)
 {
 	vector<Node> X = gb->GetSetX();
-	strategy->ChangePotential(moveMade, X, *gb);
+	strategy->ChangePotential(moveMade, X, gb);
 }

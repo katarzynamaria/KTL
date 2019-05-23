@@ -3,9 +3,9 @@
 class Game
 {
 	int range;				 //przedzial z którego losujemy liczby	
-	int sequenceLenght;		 // d?ugo?? ci?gu arytmetycznego
+	int sequenceLenght;		 //dlugosc ciagu arytmetycznego
 	int setCard;			 //
-	int strategy;			 // moc zbiotu
+	int strategy;			 // moc zbioru
 	Gameboard* gb;
 	vector<Player*> players;
 public:
@@ -17,6 +17,6 @@ public:
 	bool EndOfGame();						    // sprawdza czy ktorys z graczy nie wygral (w zale?no?ci od strategii gracza)
 	void ShowStatus();							// pokazuje statystyki gry w danym momencie	
 	void PlayerMove(int k);						//	void PlayerMove(Player& p);  // wykonuje ruch gracza (do napisania) tak?
-	void LastPlayer() { gb->LastColour = gb->GetSetX()[gb->LastMove()].colour; }
-	void AddPlayer(Strategy*, int colour);
+	void LastPlayer() { gb->LastColour = gb->GetSetX()[gb->LastMove()].colour; } //kto ostatni gral
+	void AddPlayer(Strategy*, int colour);		// zajmuje sie dodaniem Graczy do gry
 };

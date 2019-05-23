@@ -55,11 +55,18 @@ Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 
 	cout << "Valid set generated" << endl;
 	ShowGameboard();
+
 	generateHypergraph();
 	setPotentials();
 	showHypergraph();
 }
-
+void Gameboard::setDegrees(vector<int>& hiperval,int iter)
+{
+	for (int i = 0; i < setX.size(); ++i)
+	{
+		setX[i].setDegree(&hiperval,iter);
+	}
+}
 void Gameboard::setPotentials()
 {
 	for (int i = 0; i < setX.size(); ++i)
@@ -130,11 +137,11 @@ void Gameboard::generateHypergraph()
 				currentSize++;
 				multiplier++;
 				v->push_back(next.value);
-				next.degree.push_back(i);
-
+				
 			}
 			if (currentSize >= sequenceLenght)
 			{
+				setDegrees(*v , i);
 				hypergraph.push_back(*v);
 			}
 			v = new vector<int>();
@@ -203,6 +210,7 @@ void Gameboard::ShowGameboard() //w zale?no?ci od tego jaki gracz wykona? ruch k
 			SetConsoleTextAttribute(hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
 			cout << setX[i].value << " ";
 		}
+		SetConsoleTextAttribute(hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
 	}
 	cout << endl;
 }
