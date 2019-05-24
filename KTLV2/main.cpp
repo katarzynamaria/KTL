@@ -53,6 +53,6 @@ int main() {
 		if (gra.EndOfGame()) break;
 	
 	}
-
+	cout << "KONIEC GRY" << endl;
 	system("pause");
 }

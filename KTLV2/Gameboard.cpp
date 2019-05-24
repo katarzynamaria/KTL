@@ -20,7 +20,7 @@ int Gameboard::isNext(int* row, int x, int j)
 {
 	for (int i = j; i < setCard; ++i)
 	{
-		if (row[i] > x) break;
+		//if (row[i] > x) break;
 		if (row[i] == x) return setX[i].value;
 	}
 	return -1;
@@ -28,12 +28,13 @@ int Gameboard::isNext(int* row, int x, int j)
 bool Gameboard::isValid()								
 {
 	vector<int> validSequence;
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < setCard; i++)
 	{
 		int currentSize = 0;
 		int multiplier = 1;
 		for (int j = i + 1; j <setCard; ++j)
 		{
+			validSequence.push_back(setX[i].value);
 			if (distMatrix[i][j] == 0) continue;
 			while (isNext(distMatrix[i], distMatrix[i][j] * multiplier, j) != -1)
 			{
@@ -43,6 +44,12 @@ bool Gameboard::isValid()
 			}
 			if (currentSize >= sequenceLenght)
 			{
+				cout << "valid" << endl;
+				for (int i = 0; i < currentSize; i++)
+				{
+					cout << validSequence[i] << " ";
+				}
+				cout << "Koniec" <<endl;
 				return true;
 			}
 			validSequence.clear();
@@ -180,11 +187,13 @@ void Gameboard::generateHypergraph()					//generuje hipergraf
 	{
 		int currentSize = 0;
 		int multiplier = 1;
-		for (int j = i + 1; j < setCard; ++j)
+		for (int j = i+1 ; j < setCard;++j)
 		{
+			v->push_back(&setX[i]);
+			currentSize++;
 			while (true)
 			{
-				int value = isNext(distMatrix[i], distMatrix[i][j] * multiplier, j); //nastepny wyraz na podstawie IsNext
+				int value = isNext(distMatrix[i], distMatrix[i][j]* multiplier, j); //nastepny wyraz na podstawie IsNext
 				if (value == -1) break;
 				currentSize++;
 				multiplier++;
