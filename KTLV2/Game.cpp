@@ -23,17 +23,15 @@ bool Game::isWinner(int k)  //sprawdza czy dany gracz jest zwyciezca
 
 bool Game::EndOfGame()  //konczy gre jezeli ktorys z graczy jest zwyciezca +trzeba koñczyæ jezeli ju¿ nie ma ruchów
 {
-
 	if (isWinner(0) || isWinner(1))
 	{
-		cout << "Wygrywa gracz " << gb->LastColour + 1 << endl;
+		cout << "Wygrywa gracz " << gb->LastColour << endl;
 		return true;
 	}
 
 	if (gb->seqYetToChoose == 0)
 	{
 		cout << "Koniec ciagow " << endl;
-		system("pause");
 		return true;
 	}
 	return false;

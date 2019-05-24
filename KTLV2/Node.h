@@ -3,6 +3,11 @@
 #include <iostream>
 using namespace std;
 
+#pragma once
+#include <vector>
+#include <iostream>
+using namespace std;
+
 struct Node
 {
 
@@ -11,8 +16,8 @@ struct Node
 	vector<int> degree;	 // indeksy wierszy z hipergrafu w których dany node si? znajduje
 	bool visited;		 //	czy dany wierzcholek zostal wybrany
 	double gValue;		 //suma potencjalow wszystkich ciagow w do ktorych nalezy wierzcholek
-						 
-						 
+
+
 						 //konstruktory
 	Node() : value(0), colour(0), gValue(0), visited(0) {};
 	Node(int v, int col = 0) : value(v), colour(col), gValue(0), visited(0) {};
@@ -40,7 +45,7 @@ struct Node
 		}
 	}//jezeli dana wartosc jest równa wierzcholkowi to zapisujemy wiersz w degree}
 
-	
+
 
 	void setgValue(vector<double>& potential)
 	{

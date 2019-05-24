@@ -4,7 +4,7 @@
 void Gameboard::colorField(int index, int colour) //przypisuje wartosc ostatniego pomalowanego wierzcholka zmennej lastColoredFiled 
 {
 	lastColoredField = setX[index].value;
-
+	LastColour = colour;
 	setX[index].colour = colour;
 }
 int Gameboard::findIndexOf(int value)
@@ -70,14 +70,14 @@ void Gameboard::SetPotential()
 	cout << "setting potentials" << endl;
 	int k = 0;
 	for (int i = 0; i < hypergraph.size(); ++i)
-		
-		{
-			k = hypergraph[i].size();
-			Potential.push_back(pow(2, -k));
-		}
-		
+
+	{
+		k = hypergraph[i].size();
+		Potential.push_back(pow(2, -k));
+	}
+
 }
-	
+
 
 
 Gameboard::Gameboard(int sequenceLength, int setCard, int range)
@@ -260,7 +260,7 @@ void Gameboard::ShowGameboard() //w zale?no?ci od tego jaki gracz wykona? ruch k
 		if (setX[i].colour == 1)
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_RED);
-			cout << setX[i].value <<"." << setX[i].gValue << " ";
+			cout << setX[i].value << "." << setX[i].gValue << " ";
 		}
 		else if (setX[i].colour == 2)
 

@@ -28,7 +28,7 @@ int main() {
 
 	Game gra(x, k, strategy, new Gameboard(k, x, k*x));
 	gra.AddPlayer(new Maker(), 1);
-	gra.AddPlayer(new BreakerHard(), 2);
+	gra.AddPlayer(new BreakerEasy(), 2);
 
 	//system("pause");
 
@@ -46,5 +46,5 @@ int main() {
 	}
 
 	system("pause");
-	return 0;
+	
 }

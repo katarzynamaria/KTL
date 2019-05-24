@@ -15,5 +15,5 @@ public:
 	void TakeNode();							//zmienia prametr colour w Node na swoj
 	void ChangePotential(Node& moveMade);		//zmienia parametr potential w Node
 	bool IsWinner();
-
 };
+	

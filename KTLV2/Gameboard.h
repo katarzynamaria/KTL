@@ -26,7 +26,7 @@ public:
 	vector<double> Potential;
 
 	void SetPotential();
-	
+
 
 	Gameboard(int sequenceLength = 4, int setCard = 30, int range = 100);
 	void setDegrees(vector<Node*>&, int);
@@ -68,5 +68,5 @@ private:
 
 	void showHypergraph();
 	void setPotentials();
-	
+
 };
