@@ -32,18 +32,11 @@ void Maker::ChangePotential(Node& moveMade, vector<vector<Node*>>& hypegraph, Ga
 			vector<Node*> nodes = hypegraph[moveMade.degree[i]];
 			for (int j = 0; j < hypegraph[moveMade.degree[i]].size(); j++)
 			{
-				nodes[j]->gValue *= pow(2, -1);
+				nodes[j]->gValue *= 2;
 			}
 		}
 	}
-	else
-	{
-		for (int i = 0; i < moveMade.degree.size(); ++i)
-		{
-			for (int j = 0; j < hypegraph[moveMade.degree[i]].size(); i++)
-				hypegraph[moveMade.degree[i]][j]->gValue = 1;
-		}
-	}
+	
 	moveMade.visited = true;
 }
 
@@ -137,14 +130,12 @@ void BreakerHard::ChangePotential(Node& moveMade, vector<vector<Node*>>& hypergr
 {
 	for (int i = 0; i < moveMade.degree.size(); ++i)
 	{
-		for (int j = 0; j < hypergraph[i].size(); j++)
 			vector<Node*> nodes = hypergraph[moveMade.degree[i]];
 		for (int j = 0; j < hypergraph[moveMade.degree[i]].size(); j++)
 		{
 			//cout << "Before getting nodes for i = " << i << endl;
 			//cout << "Degree[i] = " << moveMade.degree[i] << endl;
-			vector<Node*> nodes = hypergraph[moveMade.degree[i]];
-
+	
 			//cout << "Got nodes!" << endl;
 			nodes[j]->gValue *= 0;  //wiercholek wybral Maker-zwiekszamy potencjal
 		}

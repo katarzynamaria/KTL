@@ -68,12 +68,10 @@ bool Gameboard::isValid()								//sprawdza czy dany set ma ciag arytmetyczny w 
 void Gameboard::SetPotential()
 {
 	cout << "setting potentials" << endl;
-	int k = 0;
 	for (int i = 0; i < hypergraph.size(); ++i)
 
 	{
-		k = hypergraph[i].size();
-		Potential.push_back(pow(2, -k));
+		Potential.push_back(pow(2,-sequenceLenght));
 	}
 
 }
