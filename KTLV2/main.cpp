@@ -10,6 +10,7 @@ int main() {
 	int x = 0, k = 0, strategy;
 
 	cout << "----------- START GRY -----------" << endl;
+	
 	while (x <= 2 * k + 1)
 	{
 		cout << "Moc zbioru X: ";
@@ -24,14 +25,24 @@ int main() {
 	cout << "3 - agresywny vs defensywny" << endl;
 	cout << "Wybrana strategia: ";
 	cin >> strategy;
+	
 
 
-	Game gra(x, k, strategy, new Gameboard(k, x, k*x));
+	Game gra(x, k, strategy, new Gameboard(k, x, k*x));	
 	gra.AddPlayer(new Maker(), 1);
-	gra.AddPlayer(new BreakerHard(), 2);
 
-	//system("pause");
-
+	if (strategy == 1) {
+		gra.AddPlayer(new Maker(), 2);
+	}
+	else if (strategy == 3)
+	{
+		gra.AddPlayer(new BreakerHard(), 2);
+	}
+	else if (strategy == 2)
+	{
+		gra.AddPlayer(new BreakerEasy(), 2);
+	}
+	
 	while (true)
 	{
 		gra.PlayerMove(0);
@@ -40,11 +51,8 @@ int main() {
 		gra.PlayerMove(1);
 		gra.ShowStatus();
 		if (gra.EndOfGame()) break;
-		//gra.ShowStatus();
-
-
+	
 	}
 
 	system("pause");
-	return 0;
 }

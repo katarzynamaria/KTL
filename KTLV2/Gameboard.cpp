@@ -1,10 +1,10 @@
 #include "Gameboard.h"
 #include <time.h>
 
-void Gameboard::colorField(int index, int colour) //przypisuje wartosc ostatniego pomalowanego wierzcholka zmennej lastColoredFiled 
+void Gameboard::colorField(int index, int colour) 
 {
 	lastColoredField = setX[index].value;
-
+	LastColour = colour;
 	setX[index].colour = colour;
 }
 int Gameboard::findIndexOf(int value)
@@ -13,14 +13,10 @@ int Gameboard::findIndexOf(int value)
 	{
 		if (setX[i] == value) return i;
 	}
-	cout << "CRITICAL FAIL - CAN't find" << value << " in setX";		//CRITICAL FAIL XDDDDDDDDDDD
+	cout << "CRITICAL FAIL - can't find " << value << " in setX";
 	return -1;
 }
-;
-
-
-
-int Gameboard::isNext(int* row, int x, int j)				//szuka nastepnego wyrazu ciagu
+int Gameboard::isNext(int* row, int x, int j)	
 {
 	for (int i = j; i < setCard; ++i)
 	{
@@ -29,8 +25,7 @@ int Gameboard::isNext(int* row, int x, int j)				//szuka nastepnego wyrazu ciagu
 	}
 	return -1;
 }
-
-bool Gameboard::isValid()								//sprawdza czy dany set ma ciag arytmetyczny w sobie
+bool Gameboard::isValid()								
 {
 	vector<int> validSequence;
 	for (int i = 0; i < 2; i++)
@@ -48,11 +43,6 @@ bool Gameboard::isValid()								//sprawdza czy dany set ma ciag arytmetyczny w 
 			}
 			if (currentSize >= sequenceLenght)
 			{
-				cout << "Valid sequence is: " << endl;
-				for (int h = 0; h < validSequence.size(); ++h)
-				{
-					cout << validSequence[h] << " ";
-				}
 				return true;
 			}
 			validSequence.clear();
@@ -67,19 +57,24 @@ bool Gameboard::isValid()								//sprawdza czy dany set ma ciag arytmetyczny w 
 
 void Gameboard::SetPotential()
 {
-	cout << "setting potentials" << endl;
-	int k = 0;
 	for (int i = 0; i < hypergraph.size(); ++i)
-		
-		{
-			k = hypergraph[i].size();
-			Potential.push_back(pow(2, -k));
-		}
-		
+	{
+		Potential.push_back(pow(2,-sequenceLenght));
+	}
+
 }
-	
-
-
+/*
+void Gameboard::ChangePotential(double v)
+{
+	Node* lmove = findNodeWithValue(lastColoredField);
+	vector<int> seqIndex = lmove->degree;
+	for (int k = 0; k < seqIndex.size(); k++)
+	{
+		Potential[k] *= v;
+	}
+	setPotentials();
+}
+*/
 Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 {
 	this->sequenceLenght = sequenceLength;
@@ -95,14 +90,12 @@ Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 	}
 	do
 	{
-		//cout << "Generating set" << endl;
 		generateSet();
 
 	} while (!isValid());
 
-	//cout << endl << "Valid set generated" << endl;
 	generateHypergraph();
-	//ShowDegrees();
+	
 
 	SetPotential();
 	setPotentials();
@@ -153,14 +146,12 @@ void Gameboard::getRandomNumbers() //Tworzymy zbiór randomowych liczb
 	iota(begin(notYetGenerated), end(notYetGenerated), 1);
 
 
-	Node v = *new Node();									//tutaj dostosowalam do nowego setX
+	Node v = *new Node();									
 	for (int i = 0; i < setCard; i++)
 	{
 		int index = rand() % notYetGenerated.size();
-		//int number = notYetGenerated[index];
 		v.value = notYetGenerated[index];
 		notYetGenerated.erase(notYetGenerated.begin() + index);
-		//setX.push_back(number);
 		setX.push_back(v);
 
 	}
@@ -179,8 +170,6 @@ void Gameboard::generateDistMatrix()			//generuje macierz odleglosci miedzy wier
 
 	}
 }
-//void Gameboard::ShowDegrees() { for (int i = 0; i < setX.size(); ++i) cout << "size: " << setX[i].degree.size(); }
-
 
 void Gameboard::generateHypergraph()					//generuje hipergraf
 {
@@ -240,14 +229,6 @@ Gameboard::~Gameboard()			//destruktor do zwolnienia pamieci
 	}
 }
 
-
-int Gameboard::LastMove()		//przechowuje informacje o graczu który ostatnio wykona? ruch
-{
-	return lastColoredField;
-}
-
-
-
 void Gameboard::ShowGameboard() //w zale?no?ci od tego jaki gracz wykona? ruch kolorujemy liczby na czerwonno lub niebiesko
 {
 	HANDLE hOut;
@@ -260,18 +241,18 @@ void Gameboard::ShowGameboard() //w zale?no?ci od tego jaki gracz wykona? ruch k
 		if (setX[i].colour == 1)
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_RED);
-			cout << setX[i].value <<"." << setX[i].gValue << " ";
+			cout << setX[i].value << " " ;			
 		}
 		else if (setX[i].colour == 2)
 
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_BLUE);
-			cout << setX[i].value << "." << setX[i].gValue << " ";
+			cout << setX[i].value << " ";
 		}
 		else
 		{
 			SetConsoleTextAttribute(hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
-			cout << setX[i].value << "." << setX[i].gValue << " ";
+			cout << setX[i].value << " ";
 		}
 
 		SetConsoleTextAttribute(hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
