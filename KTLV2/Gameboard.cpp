@@ -28,7 +28,7 @@ int Gameboard::isNext(int* row, int x, int j)
 bool Gameboard::isValid()								
 {
 	vector<int> validSequence;
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < setX.size(); i++)
 	{
 		int currentSize = 0;
 		int multiplier = 1;
@@ -63,18 +63,7 @@ void Gameboard::SetPotential()
 	}
 
 }
-/*
-void Gameboard::ChangePotential(double v)
-{
-	Node* lmove = findNodeWithValue(lastColoredField);
-	vector<int> seqIndex = lmove->degree;
-	for (int k = 0; k < seqIndex.size(); k++)
-	{
-		Potential[k] *= v;
-	}
-	setPotentials();
-}
-*/
+
 Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 {
 	this->sequenceLenght = sequenceLength;
