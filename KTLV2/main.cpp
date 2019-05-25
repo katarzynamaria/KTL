@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-	
+
 
 	srand(time(NULL));
 	bool newgame = false;
@@ -64,7 +64,7 @@ int main() {
 		cin >> newgame;
 
 
-		if (1!=newgame)break;
+		if (1 != newgame)break;
 	}
 
 	system("pause");

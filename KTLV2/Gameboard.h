@@ -22,7 +22,8 @@ public:
 	int LastColour;
 	int seqYetToChoose;
 	vector<double> Potential;
-	bool conti=1;
+	bool conti = 1;
+	
 
 	//konstruktory
 	Gameboard(int sequenceLength = 4, int setCard = 30, int range = 100);

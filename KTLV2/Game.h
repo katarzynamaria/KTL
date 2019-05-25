@@ -4,12 +4,12 @@ class Game
 {
 	int range;				 //przedzial z którego losujemy liczby	
 	int sequenceLenght;		 //dlugosc ciagu arytmetycznego
-	int setCard;			 //
-	int strategy;			 // moc zbioru
+	int setCard;			 //moc zbioru
+	int strategy;	         
 	Gameboard* gb;
 	vector<Player*> players;
 public:
-	bool conti = 1;
+	bool conti = 1; 
 	Game(int x, int k, int strategy, Gameboard* gb);
 	~Game();
 	int  LastColour;

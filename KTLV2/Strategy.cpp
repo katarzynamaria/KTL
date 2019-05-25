@@ -76,20 +76,14 @@ int BreakerEasy::ChooseNode(vector<vector<Node*>>& hyp, Gameboard* gb)
 void BreakerEasy::ChangePotential(vector<vector<Node*>>& hyp, Gameboard* gb)
 {
 	Node* lmove = gb->findNodeWithValue(gb->LastMove());
+
 	vector<int> seqIndex = lmove->degree;
-	for (int i = 0; i < seqIndex.size(); i++)
+	for (int k = 0; k < seqIndex.size(); k++)
 	{
-		vector<Node*> nodes = hyp[seqIndex[i]];
-		int n = 0;
-		for (int k = 0; k < nodes.size(); k++)
-		{
-			if (nodes[k]->colour == 0) n++;
-		}
-		if (n < gb->GetSequenceLenght()) gb->Potential[i] *= 0;
-		else gb->Potential[i] *= 1 / 2;
+		gb->Potential[k] *= 0;
 	}
-	
 	gb->setPotentials();
+
 
 }
 
@@ -118,20 +112,12 @@ int BreakerHard::ChooseNode(vector<vector<Node*>>& H, Gameboard* gb)
 void BreakerHard::ChangePotential(vector<vector<Node*>>& hyp, Gameboard* gb)
 {
 	Node* lmove = gb->findNodeWithValue(gb->LastMove());
-	
-	vector<int> seqIndex = lmove->degree;
-	for (int i = 0; i < seqIndex.size(); i++)
-	{
-		vector<Node*> nodes = hyp[seqIndex[i]];
-		int n = 0;
-		for (int k = 0; k < nodes.size(); k++)
-		{
-			if (nodes[k]->colour == 0) n++;
-		}
-		if (n < gb->GetSequenceLenght()) gb->Potential[i] *= 0;
-		else gb->Potential[i] *= 1 / 2;
-	}
 
+	vector<int> seqIndex = lmove->degree;
+	for (int k = 0; k < seqIndex.size(); k++)
+	{
+		gb->Potential[k] *= 0;
+	}
 	gb->setPotentials();
 
-}
+	}
