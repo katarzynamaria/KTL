@@ -44,7 +44,7 @@ bool Gameboard::isValid()
 			}
 			if (currentSize >= sequenceLenght)
 			{
-				cout << "valid" << endl;
+				cout << "valid sequence found: " << endl;
 				for (int i = 0; i < currentSize; i++)
 				{
 					cout << validSequence[i] << " ";
@@ -199,7 +199,7 @@ void Gameboard::generateHypergraph()					//generuje hipergraf
 				multiplier++;
 				Node* node = findNodeWithValue(value);
 				v->push_back(node);
-
+				if (currentSize == sequenceLenght) break;
 			}
 			if (currentSize >= sequenceLenght) //jezeli wybrany wyzej ciag jest dlugosci wiekszej niz k to go dodajemy do hipergrafu
 			{
