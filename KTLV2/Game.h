@@ -9,6 +9,7 @@ class Game
 	Gameboard* gb;
 	vector<Player*> players;
 public:
+	bool conti = 1;
 	Game(int x, int k, int strategy, Gameboard* gb);
 	~Game();
 	int  LastColour;

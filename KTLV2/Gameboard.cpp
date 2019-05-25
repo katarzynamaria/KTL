@@ -88,8 +88,10 @@ Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 	this->setCard = setCard;
 	this->range = range;
 	this->distMatrix = new int*[setCard];
-
+	
 	cout << "Prosze czekac. Generowanie poprawnego zbioru..." << endl;
+	int j = 0;
+	bool czy_dalej = 0;
 	for (int i = 0; i < setCard; ++i)
 	{
 		distMatrix[i] = new int[setCard];
@@ -97,18 +99,36 @@ Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 	}
 	do
 	{
+		j++;
+		if (j == 1000) {
+			cout << endl;
+			cout << "Nie udalo sie wylosowac poprawnego zbioru po 1000 probach. Czy chcesz kontynuowac?" << endl;
+			cout << "1-TAK" << endl;
+			cout << "0-NIE" << endl;
+			cin >> czy_dalej;
+			if (czy_dalej != 1)
+			{
+				conti = 0;
+				break;
+			}
+			j = 0;
+		}
 		cout << "." ;
 		generateSet();
-
+	
+		
 	} while (!isValid());
 	
-	ShowGameboard();
+	if (conti == 0) exit;
+	else {
+		ShowGameboard();
 
-	cout << "Prosze czekac. Generowanie hipergrafu..." << endl;
-	generateHypergraph();
-	showHypergraph();
-	SetPotential();
-	setPotentials();
+		cout << "Prosze czekac. Generowanie hipergrafu..." << endl;
+		generateHypergraph();
+		showHypergraph();
+		SetPotential();
+		setPotentials();
+	}
 }
 
 

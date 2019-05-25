@@ -7,7 +7,8 @@ Game::Game(int x, int k, int strategy, Gameboard* g)
 {
 	gb = g;
 	this->strategy = strategy;
-
+	conti = g->conti;
+	
 	cout << "Skonczylem tworzyc plansze, zaczynamy rozgrywke " << endl;
 }
 

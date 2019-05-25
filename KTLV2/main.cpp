@@ -45,7 +45,7 @@ int main() {
 			gra.AddPlayer(new BreakerEasy(), 2);
 		}
 
-		while (true)
+		while (gra.conti)
 		{
 			gra.PlayerMove(0);
 			gra.ShowStatus();
@@ -55,6 +55,7 @@ int main() {
 			if (gra.EndOfGame()) break;
 
 		}
+
 		cout << "KONIEC GRY" << endl;
 
 		cout << endl;
