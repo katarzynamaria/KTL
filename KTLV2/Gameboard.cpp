@@ -44,7 +44,7 @@ bool Gameboard::isValid()
 			}
 			if (currentSize >= sequenceLenght)
 			{
-				cout << "valid sequence found: " << endl;
+				cout << "Wygenerowano poprawna plansze z ciagiem: " << endl;
 				for (int i = 0; i < currentSize; i++)
 				{
 					cout << validSequence[i] << " ";
@@ -89,7 +89,7 @@ Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 	this->range = range;
 	this->distMatrix = new int*[setCard];
 
-
+	cout << "Prosze czekac. Generowanie poprawnego zbioru..." << endl;
 	for (int i = 0; i < setCard; ++i)
 	{
 		distMatrix[i] = new int[setCard];
@@ -97,18 +97,18 @@ Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 	}
 	do
 	{
+		cout << "." << endl;
 		generateSet();
 
 	} while (!isValid());
-
-	generateHypergraph();
 	
-
-	SetPotential();
-	setPotentials();
 	ShowGameboard();
 
+	cout << "Prosze czekac. Generowanie hipergrafu..." << endl;
+	generateHypergraph();
 	showHypergraph();
+	SetPotential();
+	setPotentials();
 }
 
 
@@ -180,6 +180,7 @@ void Gameboard::generateDistMatrix()			//generuje macierz odleglosci miedzy wier
 
 void Gameboard::generateHypergraph()					//generuje hipergraf
 {
+
 	int index = 0;
 	vector<Node*>* v = new vector<Node*>();
 
@@ -210,13 +211,15 @@ void Gameboard::generateHypergraph()					//generuje hipergraf
 			currentSize = 0;
 			multiplier = 1;
 		}
+		cout << "...";
 	}
 	seqYetToChoose = hypergraph.size();
+	cout << endl;
 }
 
 void Gameboard::showHypergraph() //wypisuje hipergraf
 {
-	cout << "Hipergraf: " << endl;
+	cout << "Wylosowano nastepujace ciagi: " << endl;
 
 	for (int i = 0; i < hypergraph.size(); ++i)
 
@@ -227,6 +230,7 @@ void Gameboard::showHypergraph() //wypisuje hipergraf
 		}
 		cout << endl;
 	}
+	cout << "-------------------------------------------------" << endl;
 }
 
 Gameboard::~Gameboard()			//destruktor do zwolnienia pamieci
