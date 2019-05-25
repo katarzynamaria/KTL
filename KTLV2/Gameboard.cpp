@@ -45,7 +45,8 @@ bool Gameboard::isValid()
 			}
 			if (currentSize == sequenceLenght)
 			{
-				cout << "Wygenerowano poprawny zbiór z ciagiem: " << endl;
+				cout << endl;
+				cout << "Wygenerowano poprawny zbior z ciagiem: " << endl;
 				for (int i = 0; i < currentSize; i++)
 				{
 					cout << validSequence[i] << " ";
@@ -112,6 +113,7 @@ Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 
 	if (conti == 0) exit;
 	else {
+		cout << "Zbior: " << endl;
 		ShowGameboard();
 
 		cout << "Prosze czekac. Generowanie hipergrafu..." << endl;
