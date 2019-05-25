@@ -97,7 +97,7 @@ Gameboard::Gameboard(int sequenceLength, int setCard, int range)
 	}
 	do
 	{
-		cout << "." << endl;
+		cout << "." ;
 		generateSet();
 
 	} while (!isValid());
