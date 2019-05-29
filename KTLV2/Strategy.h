@@ -1,42 +1,35 @@
-#pragma once
-#include "Game.h"
+﻿#pragma once
+#include "Gameboard.h"
 
 class Strategy
 {
 public:
-	virtual int ChooseNode() = 0;  //zwracamy indeks w setX;
+
+	virtual int ChooseNode(vector<vector<Node*>>&, Gameboard*) = 0;				//zwracamy indeks w setX;
+	virtual void ChangePotential(vector<vector<Node*>>& hyp, Gameboard*) = 0;	//zmiana potencjalu zalezy od strategii (jak maker to wzrasta o 1/2^k, jak breaker to maleje o tyle samo lub 0)
 };
 
 class Maker : public Strategy
 {
 public:
-	Maker() {};
 
-	virtual int ChooseNode()
-	{
-		//do wypelnienia
-		return 0;
-	}
+	virtual int ChooseNode(vector<vector<Node*>>&, Gameboard*);
+	virtual void ChangePotential(vector<vector<Node*>>& hyp, Gameboard*);
+
 };
 
-class BreakerEasy : public Strategy //breaker strategii parujacej
+class BreakerEasy : public Strategy							//breaker strategii parujacej
 {
 public:
-	virtual int ChooseNode()
-	{
-		//do wypelnienia
-		return 0;
-	}
+	virtual int ChooseNode(vector<vector<Node*>>&, Gameboard*);
+	virtual void ChangePotential(vector<vector<Node*>>& hyp, Gameboard*);
+
 };
 
-class BreakerHard : public Strategy //strategii potencjalow
+class BreakerHard : public Strategy							//strategii potencjalow
 {
 public:
-	virtual int ChooseNode()
-	{
-		//do wypelnienia
-		return 0;
-	}
+	virtual int ChooseNode(vector<vector<Node*>>&, Gameboard*);
+	virtual void ChangePotential(vector<vector<Node*>>& hyp, Gameboard*);
+
 };
-
-

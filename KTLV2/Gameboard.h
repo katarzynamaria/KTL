@@ -1,61 +1,71 @@
-#pragma once
+﻿#pragma once
 #include <vector>
 #include <algorithm>
 #include <numeric>
 #include <iostream>
 #include <stdlib.h>
 #include <windows.h>
-#include "Game.h"
+#include "Node.h"
 
 using namespace std;
 
-class Gameboard		//zmienilam na pisane wszystko z malej litery - w mojej glowie ma to wiecej sensu, ale nie bede sie klocic jesli zmieni ktos xd
+class Gameboard
 {
-	vector<Node> setX;		//struktura Node w Game.h
-	int** distMatrix;
-	int range;
-	int sequenceLenght;
-	int setCard;
-	vector<vector<int>> hypergraph;	//albo vector<Node> jeszcze nie przemyslalam
-	//vector<int> setX;
-
-	int lastColoredField;
+	vector<Node> setX;		
+	int** distMatrix;		//macierz odległośći (pomocnicza)
+	int range;				//przedzial z którego losujemy liczby	
+	int sequenceLenght;		// długość ciągu arytmetycznego
+	int setCard;			// moc zbioru, który bedzimy kolorować
+	vector<vector<Node*>> hypergraph; //hipergraf przechowujący ciągi arytmetyczne w grze
+	int lastColoredField;	//przechowuje ostatni wierzchołek wykorzystany w grze
 public:
+	int LastColour;
+	int seqYetToChoose;
+	vector<double> Potential;
+	bool conti = 1;
+	
 
-	Gameboard(int sequenceLength = 4, int setCard = 100, int range = 1000);
-	~Gameboard();		//dodalam usuwanie tablicy dynamicznej
+	//konstruktory
+	Gameboard(int sequenceLength = 4, int setCard = 30, int range = 100);
+	void setDegrees(vector<Node*>&, int);
+	~Gameboard();
 
+	void SetPotential();
+	void generateDistMatrix();		//generuje macierz odległośći na podstawie danych wstepnych
+	bool isValid();					//sprawdza czy dany zbior spełnia warunki aby rozpoczęła się gra
+	void setPotentials();
 
-	void generateDistMatrix();
-	bool isValid();
-	int LastMove(); // wyciaga jaki ruch byl ostatni (do strategi parujacej M-B(1))
-	void ShowGameboard();
-
-	//gety
+	//gety- do wydobywania prywatnych wartości
 	vector<Node> GetSetX() { return this->setX; }
+	int LastMove() {return lastColoredField;}
 	int GetSequenceLenght() { return this->sequenceLenght; }
-	int** GetDistMatrix() { return this->distMatrix; }
-	void colorField(int index, int colour) 
-	{
-		lastColoredField = index;
-		setX[index].colour = colour;
-	};
+	vector<vector<Node*>> GetHypergraph() { return this->hypergraph; }
+
+	void colorField(int index, int colour);		//przypisuje wartosc ostatniego pomalowanego wierzcholka zmennej lastColoredFiled 
+	int findIndexOf(int value);					//znajduje pozycje elementu o wartosci value w zbiorze X 			
+	Node* findNodeWithValue(int value);			//znajduje parametry wierzcholka o wartosci value
+	void ShowGameboard();						//pokazuje aktualny stan gry
 
 private:
+	int isNext(int* tab, int x, int j); //sprawdza czy kolejny wierzchołek jest kolejnym elementem ciągu arytmetycznego, dla którego x jest poprzednim wyrazem 
+	void generateSet();					// generuje zbiór liczb do kolorowania
+	void getRandomNumbers();			//do tworzenia ciągów liczb losowych
+	void generateHypergraph();			// tworzy hipergraf
+	void showHypergraph();
+	
 
-	bool isNext(int* tab, int x, int j);
-	void generateSet();
-	void getRandomNumbers();
-	void generateHypergraph();
+	//pomocnicze
 	int Abs(Node n, Node m)
 	{
-		if (n < m) return m -n;
+		if (n < m) return m - n;
 		return n - m;
 	}
+
 	int getDistance(int x, int y)
 	{
-		return Abs(setX[x], setX[y]);		//przeci��one odejmowanie (szczegoly w Game.h)
+		return Abs(setX[x], setX[y]);		//przeciazone odejmowanie
 	}
 
-};
+	
 
+};
